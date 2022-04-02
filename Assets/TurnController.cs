@@ -30,8 +30,12 @@ public class TurnController : MonoBehaviour
         }
         else if(turn % 2 == 1)
         {
-            healthE += 1;
-            endTurn();
+            if(!waitForAnimation)
+            {
+                healthE += 1;
+                endTurn();
+            }
+            
         }
 
     }
