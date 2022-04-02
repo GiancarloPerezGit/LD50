@@ -7,16 +7,28 @@ public class RadioAnnouncer : MonoBehaviour
     // At random moments, the announcer will offer dialogue that absolutely no one asked for. Will use audiomixer to have that sidechained sound
     public List<AudioClip> announcerDialogue;
 
+    private AudioClip lastClipPlayed; //utility variable for the audioclip randomizer
+   
+    
+    private float bufferTime = 12.0f;
 
-    //TODO: range serializable for easier movement 
-    public float timer = 0.0f;
-    public float bufferTime = 10.0f; 
+
+    private float timer = 0.0f;
+    [Range(10.0f, 15.0f)]
+    public float minBufferTime;
+    [Range(20.0f, 25.0f)]
+    public float maxBufferTime;
 
 
-    //brute force approach-> while we are in current scene, play a random announcer dialouge after a certain(slight random) amount of time 
-    //bad: chance that announcer/music cuts off when player presses play. Solution: make it dontdestroyonload and fade out on exit scene?
+    // TODO: make it dontdestroyonload and fade out on exit scene?
     [SerializeField]
-    AudioSource audioSource; 
+    AudioSource audioSource;
+
+    private void Start()
+    {
+        lastClipPlayed = null;
+    }
+
 
     private void Update()
     {
@@ -25,8 +37,11 @@ public class RadioAnnouncer : MonoBehaviour
 
         if(timer > bufferTime) //buffertime is randomized within a range 
         {
-            PlayRandomDialogue();
             timer = timer - bufferTime;
+            PlayRandomDialogue();
+            bufferTime = getRandomFloat(minBufferTime, maxBufferTime);
+            
+           
         }
            
     }
@@ -43,11 +58,23 @@ public class RadioAnnouncer : MonoBehaviour
 
     private AudioClip ChooseRandomAudioClip(List<AudioClip> audioClips)
     {
-        //TODO: remove possibility of same clip already, maybe same past 2 clips
+        
         int num = Random.Range(0, audioClips.Count);
+       
 
-            return audioClips[num];
+        if(lastClipPlayed != audioClips[num])
+        {
+            lastClipPlayed=audioClips[num];
+
+            return lastClipPlayed;
+        }
+        
+        return audioClips[0]; 
     }
 
+    private float getRandomFloat(float minFloat, float maxFloat)
+    {
+        return Random.Range(minFloat, maxFloat);
+    }
 
 }
