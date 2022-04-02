@@ -1,2 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="Menu.uss" />
+    <ui:VisualElement style="flex-grow: 1; align-items: stretch; justify-content: center; -unity-text-align: upper-center; flex-direction: row;">
+        <ui:VisualElement style="align-items: stretch; justify-content: center; max-width: 33%; position: relative; flex-grow: 1;">
+            <ui:Label text="Game Title" display-tooltip-when-elided="true" name="title" class="title" style="-unity-text-align: upper-center; font-size: 54%; white-space: nowrap;" />
+            <ui:Button text="Play" display-tooltip-when-elided="true" name="play" class="button" />
+            <ui:Button text="Settings" display-tooltip-when-elided="true" name="settings" class="button" />
+            <ui:Button text="Credits" display-tooltip-when-elided="true" name="credits" class="button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>
