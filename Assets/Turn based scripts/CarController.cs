@@ -109,6 +109,7 @@ public class CarController : MonoBehaviour
     public void tarTrapEffects(CarController cc)
     {
         cc.tarred = true;
+        tc.valueSync();
     }
     #endregion
     #region BLUE ABILTIES
@@ -199,20 +200,21 @@ public class CarController : MonoBehaviour
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void shield()
     {
-        StartCoroutine(bigSpeedAnimation());
+        StartCoroutine(shieldAnimation());
     }
 
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
     IEnumerator shieldAnimation()
     {
         yield return new WaitForSeconds(1);
-        bigSpeedEffects();
+        shieldEffects();
     }
 
     //Method that applies the effect of the move as determined by the first method. If the move has no variation then this method will always be called.
     public void shieldEffects()
     {
         shielded = true;
+        tc.valueSync();
     }
     #endregion
 }
