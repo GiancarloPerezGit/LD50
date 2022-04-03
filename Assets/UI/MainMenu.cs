@@ -51,6 +51,8 @@ public class MainMenu : MonoBehaviour
         sbackButton.clicked += BackButtonPressed;
         cbackButton.clicked += BackButtonPressed;
 
+        
+
     }
 
     void PlayButtonPressed()
