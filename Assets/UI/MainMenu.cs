@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UIElements.Experimental;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -18,6 +19,11 @@ public class MainMenu : MonoBehaviour
 
     public Button sbackButton;
     public Button cbackButton;
+
+    public Slider masterSlider;
+    public Slider songSlider;
+    public Slider soundSlider;
+    public Slider announcerSlider;
 
     private void Awake()
     {
@@ -40,6 +46,11 @@ public class MainMenu : MonoBehaviour
         sbackButton = root.Q<Button>("sback");
         cbackButton = root.Q<Button>("cback");
 
+        masterSlider = root.Q<Slider>("masterSlider");
+        songSlider = root.Q<Slider>("songSlider");
+        soundSlider = root.Q<Slider>("soundSlider");
+        announcerSlider = root.Q<Slider>("announcerSlider");
+
         homeScreen.style.display = DisplayStyle.Flex;
         settingsScreen.style.display = DisplayStyle.None;
         creditsScreen.style.display = DisplayStyle.None;
@@ -51,8 +62,29 @@ public class MainMenu : MonoBehaviour
         sbackButton.clicked += BackButtonPressed;
         cbackButton.clicked += BackButtonPressed;
 
-        
+        masterSlider.RegisterValueChangedCallback(OnMasterSliderChange);
+        songSlider.RegisterValueChangedCallback(OnSongSliderChange);
+        soundSlider.RegisterValueChangedCallback(OnSoundSliderChange);
+        announcerSlider.RegisterValueChangedCallback(OnAnnouncerSliderChange);
 
+    }
+
+    private void OnMasterSliderChange(ChangeEvent<float> evt)
+    {
+        Debug.Log("Master volume = " + masterSlider.value);
+        //PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
+    }
+    private void OnSongSliderChange(ChangeEvent<float> evt)
+    {
+        Debug.Log("Song volume = " + songSlider.value);
+    }
+    private void OnSoundSliderChange(ChangeEvent<float> evt)
+    {
+        Debug.Log("Sound volume = " + soundSlider.value);
+    }
+    private void OnAnnouncerSliderChange(ChangeEvent<float> evt)
+    {
+        Debug.Log("Announcer volume = " + announcerSlider.value); 
     }
 
     void PlayButtonPressed()

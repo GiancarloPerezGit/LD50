@@ -16,7 +16,7 @@
                 <ui:Slider picking-mode="Ignore" label="Master Volume" value="42" high-value="100" name="masterSlider" />
                 <ui:Slider picking-mode="Ignore" label="Song Volume" value="42" high-value="100" name="songSlider" />
                 <ui:Slider picking-mode="Ignore" label="Sound Volume" value="42" high-value="100" name="soundSlider" />
-                <ui:Slider picking-mode="Ignore" label="Announcer Volume" value="42" high-value="100" />
+                <ui:Slider picking-mode="Ignore" label="Announcer Volume" value="42" high-value="100" name="announcerSlider" />
             </ui:VisualElement>
             <ui:VisualElement name="VisualElement" style="flex-grow: 0; width: 244px; flex-direction: column; align-items: stretch; justify-content: center; padding-bottom: 50px;">
                 <ui:Button text="Back" display-tooltip-when-elided="true" name="sback" class="button" />
