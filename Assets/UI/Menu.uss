@@ -1,0 +1,50 @@
+.title {
+    -unity-font: url('/Assets/UI/Fonts/Pixel Operator/PixelOperatorMono8-Bold.ttf');
+    color: rgb(255, 255, 255);
+    -unity-font-definition: none;
+}
+
+.button {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-size: 24px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    -unity-font: url('/Assets/UI/Fonts/Pixel Operator/PixelOperatorHBSC.ttf');
+    -unity-font-definition: none;
+}
+
+.button:hover {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-size: 24px;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.button:active {
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-size: 24px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-left-radius: 1px;
+    border-bottom-left-radius: 1px;
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+    background-color: rgb(0, 0, 0);
+}
