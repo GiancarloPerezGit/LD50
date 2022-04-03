@@ -65,4 +65,20 @@ public class ThreeRules : MonoBehaviour
             action.GetComponent<Button>().interactable = false;
         }
     }
+
+    public void graySelected()
+    {
+        foreach (GameObject action in red)
+        {
+            action.GetComponent<Button>().interactable = true;
+        }
+        foreach (GameObject action in blue)
+        {
+            action.GetComponent<Button>().interactable = true;
+        }
+        foreach (GameObject action in green)
+        {
+            action.GetComponent<Button>().interactable = true;
+        }
+    }    
 }
