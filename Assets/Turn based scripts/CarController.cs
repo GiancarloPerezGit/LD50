@@ -68,6 +68,7 @@ public class CarController : MonoBehaviour
 
 
     #region RED ABILTIES
+    #region BIG DAMAGE
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void bigDamage(CarController cc)
     {
@@ -94,7 +95,8 @@ public class CarController : MonoBehaviour
             cc.takeDamage(2);
         }
     }
-    
+    #endregion
+    #region TAR TRAP
     public void tarTrap(CarController cc)
     {
         StartCoroutine(tarTrapAnimation(cc));
@@ -112,7 +114,9 @@ public class CarController : MonoBehaviour
         tc.valueSync();
     }
     #endregion
+    #endregion
     #region BLUE ABILTIES
+    #region SMALL DAMAGE
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void smallDamage(CarController cc)
     {
@@ -139,7 +143,8 @@ public class CarController : MonoBehaviour
             cc.takeDamage(1);
         }
     }
-
+    #endregion
+    #region SMALL SPEED
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void smallSpeed()
     {
@@ -171,7 +176,9 @@ public class CarController : MonoBehaviour
         }
     }
     #endregion
+    #endregion
     #region GREEN ABILTIES
+    #region BIG SPEED
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void bigSpeed()
     {
@@ -197,6 +204,8 @@ public class CarController : MonoBehaviour
             speedUp(2);
         }
     }
+    #endregion
+    #region SHIELD
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void shield()
     {
@@ -216,5 +225,6 @@ public class CarController : MonoBehaviour
         shielded = true;
         tc.valueSync();
     }
+    #endregion
     #endregion
 }
