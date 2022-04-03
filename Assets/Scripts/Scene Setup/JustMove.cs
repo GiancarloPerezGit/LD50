@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JustMove : MonoBehaviour
 {
-    public Vector3 vector;
+    private Vector3 vector = Vector3.right;
     public float speed;
     private Rigidbody rb;
 
