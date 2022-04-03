@@ -132,6 +132,11 @@ public class TurnController : MonoBehaviour
         }
     }
 
+
+    public int GetRaceLength()
+    {
+        return raceLength;
+    }
     
 
 }
