@@ -2,31 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarController : MonoBehaviour
+public class ManaCarController : MonoBehaviour
 {
     public int position = 4;
     public bool tailwind = false;
     public bool tarred = false;
     public bool shielded = false;
     public bool animationWait = false;
-    public TurnController tc;
+    public ManaTurnController tc;
     public Vector3 newVectorPosition;
     public bool updatePosition = false;
     public float oldPosition;
+    public int nitro = 4;
+    public bool sped = false;
+    public bool damaged = false;
+    public ManaCarController pcc;
+    public bool countered = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(updatePosition)
+        if (updatePosition)
         {
             float step = Mathf.Abs(position - oldPosition) * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, newVectorPosition, step);
-            if(Vector3.Distance(transform.position, newVectorPosition) < 0.001f)
+            if (Vector3.Distance(transform.position, newVectorPosition) < 0.001f)
             {
                 updatePosition = false;
                 tc.positionUpdated();
@@ -36,29 +41,32 @@ public class CarController : MonoBehaviour
 
     public void takeDamage(int damageAmount)
     {
-        if (shielded)
+        if(pcc.shielded)
         {
-            position += damageAmount;
+            if (pcc.nitro < 2)
+            {
+                nitro += pcc.nitro;
+                pcc.nitro = 0;
+            }
+            else
+            {
+                pcc.nitro -= 2;
+                nitro += 2;
+            }
+            if (nitro > 4)
+            {
+                nitro = 4;
+            }
         }
-        else
-        {
-            position -= damageAmount;
-        }
+        position -= damageAmount;
         tc.valueSync();
     }
     public void speedUp(int speedAmount)
     {
-        if (tarred)
-        {
-            position -= speedAmount;
-        }
-        else
-        {
-            position += speedAmount;
-        }
+        position += speedAmount;
         tc.valueSync();
     }
-    
+
     public void changePosition()
     {
         newVectorPosition = new Vector3(position - 5, transform.position.y, transform.position.z);
@@ -70,23 +78,33 @@ public class CarController : MonoBehaviour
     #region RED ABILTIES
     #region BIG DAMAGE
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
-    public void bigDamage(CarController cc)
+    public void bigDamage(ManaCarController cc)
     {
-        StartCoroutine(bigDamageAnimation(cc));
+        if (nitro < 2)
+        {
+            tc.valueSync();
+        }
+        else
+        {
+            nitro -= 2;
+            StartCoroutine(bigDamageAnimation(cc));
+            
+        }
     }
 
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
-    IEnumerator bigDamageAnimation(CarController cc)
+    IEnumerator bigDamageAnimation(ManaCarController cc)
     {
         yield return new WaitForSeconds(1);
         bigDamageEffects(cc);
     }
 
     //Method that applies the effect of the move as determined by the first method. If the move has no variation then this method will always be called.
-    public void bigDamageEffects(CarController cc)
+    public void bigDamageEffects(ManaCarController cc)
     {
         //Damage taken while in position 8 or higher is increased by 1 as the driver has a harder time maintaining control at high speeds
-        if(cc.position >= 8)
+        damaged = true;
+        if (cc.position >= 8)
         {
             cc.takeDamage(3);
         }
@@ -97,20 +115,21 @@ public class CarController : MonoBehaviour
     }
     #endregion
     #region TAR TRAP
-    public void tarTrap(CarController cc)
+    public void tarTrap(ManaCarController cc)
     {
         StartCoroutine(tarTrapAnimation(cc));
     }
 
-    IEnumerator tarTrapAnimation(CarController cc)
+    IEnumerator tarTrapAnimation(ManaCarController cc)
     {
         yield return new WaitForSeconds(1);
         tarTrapEffects(cc);
     }
 
-    public void tarTrapEffects(CarController cc)
+    public void tarTrapEffects(ManaCarController cc)
     {
         cc.tarred = true;
+        countered = true;
         tc.valueSync();
     }
     #endregion
@@ -118,21 +137,30 @@ public class CarController : MonoBehaviour
     #region BLUE ABILTIES
     #region SMALL DAMAGE
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
-    public void smallDamage(CarController cc)
+    public void smallDamage(ManaCarController cc)
     {
-        StartCoroutine(smallDamageAnimation(cc));
+        if(nitro < 1)
+        {
+            tc.valueSync();
+        }
+        else
+        {
+            nitro -= 1;
+            StartCoroutine(smallDamageAnimation(cc));
+        }
     }
 
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
-    IEnumerator smallDamageAnimation(CarController cc)
+    IEnumerator smallDamageAnimation(ManaCarController cc)
     {
         yield return new WaitForSeconds(1);
         smallDamageEffects(cc);
     }
 
     //Method that applies the effect of the move as determined by the first method. If the move has no variation then this method will always be called.
-    public void smallDamageEffects(CarController cc)
+    public void smallDamageEffects(ManaCarController cc)
     {
+        damaged = true;
         //Damage taken while in position 8 or higher is increased by 1 as the driver has a harder time maintaining control at high speeds
         if (cc.position >= 8)
         {
@@ -149,7 +177,15 @@ public class CarController : MonoBehaviour
     public void smallSpeed()
     {
         print("Speed pressed");
-        StartCoroutine(smallSpeedAnimation());
+        if (nitro < 1)
+        {
+            tc.valueSync();
+        }
+        else
+        {
+            nitro -= 1;
+            StartCoroutine(smallSpeedAnimation());
+        }
     }
 
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
@@ -164,6 +200,7 @@ public class CarController : MonoBehaviour
     //Method that applies the effect of the move as determined by the first method. If the move has no variation then this method will always be called.
     public void smallSpeedEffects()
     {
+        sped = true;
         print("Speed effected");
         //If within 3 positions behind the enemy, speed boosts are increased by 1
         if (tailwind)
@@ -182,7 +219,16 @@ public class CarController : MonoBehaviour
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void bigSpeed()
     {
-        StartCoroutine(bigSpeedAnimation());
+        if(nitro < 2)
+        {
+            tc.valueSync();
+        }
+        else
+        {
+            nitro -= 2;
+            StartCoroutine(bigSpeedAnimation());
+        }
+        
     }
 
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
@@ -195,7 +241,8 @@ public class CarController : MonoBehaviour
     //Method that applies the effect of the move as determined by the first method. If the move has no variation then this method will always be called.
     public void bigSpeedEffects()
     {
-        if(tailwind)
+        sped = true;
+        if (tailwind)
         {
             speedUp(3);
         }
@@ -207,24 +254,45 @@ public class CarController : MonoBehaviour
     #endregion
     #region SHIELD
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
-    public void shield()
+    public void shield(ManaCarController cc)
     {
-        StartCoroutine(shieldAnimation());
+        StartCoroutine(shieldAnimation(cc));
     }
 
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
-    IEnumerator shieldAnimation()
+    IEnumerator shieldAnimation(ManaCarController cc)
     {
         yield return new WaitForSeconds(1);
-        shieldEffects();
+        shieldEffects(cc);
     }
 
     //Method that applies the effect of the move as determined by the first method. If the move has no variation then this method will always be called.
-    public void shieldEffects()
+    public void shieldEffects(ManaCarController cc)
     {
-        shielded = true;
+        cc.shielded = true;
+        countered = true;
         tc.valueSync();
     }
     #endregion
     #endregion
+    public void recharge()
+    {
+        StartCoroutine(rechargeAnimation());
+    }
+    IEnumerator rechargeAnimation()
+    {
+        yield return new WaitForSeconds(1);
+        rechargeEffects();
+    }
+
+    //Method that applies the effect of the move as determined by the first method. If the move has no variation then this method will always be called.
+    public void rechargeEffects()
+    {
+        nitro += 1;
+        if (nitro > 4)
+        {
+            nitro = 4;
+        }
+        tc.valueSync();
+    }
 }
