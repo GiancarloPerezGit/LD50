@@ -20,7 +20,14 @@ public class TestMusicLayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.A))
+            RandomAdder();
+
+        if (Input.GetKeyDown(KeyCode.D))
+            RandomSubtractor();
+
+
+        LayerChecker();
     }
 
     void RandomAdder() //assign to a keycode 
@@ -28,13 +35,46 @@ public class TestMusicLayer : MonoBehaviour
         currentPoints += Random.Range(10, 41);
     }
 
-
-    void LayerChecker()
+    void RandomSubtractor() //assign to a keycode 
     {
-        if(currentPoints > (maxPoints / 3))
+        currentPoints -= Random.Range(10, 41);
+    }
+
+
+    void LayerChecker() //really hacky way at checking states, but still useable
+    {
+        //problem: must have checks if they are already in play/stop mode, else this will run every frame. 
+        if(currentPoints < (maxPoints / 3))
         {
-            //TODO: make a method that actually mutes/unmutes the music layers 
-            //This way might not work actually, what happens if it dips under the number again
+
+            //mute layer 2 and 3
+            if(musicLayerSystem.getMusicSource2().mute == false)
+                musicLayerSystem.StopMusicSource2();
+
+            if (musicLayerSystem.getMusicSource3().mute == false)
+                musicLayerSystem.StopMusicSource3();
+
+        } 
+        else if(currentPoints < (maxPoints * 2 / 3))
+        {
+            //play layer 2 
+            if (musicLayerSystem.getMusicSource2().mute == true)
+                musicLayerSystem.PlayMusicSource2();
+            //mute layer 3 
+            if (musicLayerSystem.getMusicSource3().mute == false)
+                musicLayerSystem.StopMusicSource3();
         }
+        else if (currentPoints < maxPoints)
+        {
+            //play  layer 2 
+            if (musicLayerSystem.getMusicSource2().mute == true)
+                musicLayerSystem.PlayMusicSource2();
+            //play layer  3
+            if (musicLayerSystem.getMusicSource3().mute == true)
+                musicLayerSystem.PlayMusicSource3();
+            
+        }
+
+
     }
 }
