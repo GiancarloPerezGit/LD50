@@ -107,6 +107,7 @@ public class EnemyAI : CarController
         {
             if(redAvailable)
             {
+                print("Tarred");
                 tarTrap(cc);
                 redSelect();
             }
