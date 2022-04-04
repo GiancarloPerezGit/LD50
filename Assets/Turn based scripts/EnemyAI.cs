@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class EnemyAI : CarController
 {
     public bool redAvailable = true;
     public bool blueAvailable = true;
     public bool greenAvailable = true;
     public bool tailwindCalc = false;
-
+    public bool pTailwind = false;
+    public Text display;
     public void redSelect()
     {
         redAvailable = false;
@@ -34,7 +35,20 @@ public class EnemyAI : CarController
         {
             tailwindCalc = true;
         }
-        if(lastPos > 8)
+        else
+        {
+            tailwindCalc = false;
+        }
+        if (lastPos - cc.lastPos <= 3 && cc.lastPos != lastPos)
+        {
+            pTailwind = true;
+        }
+        else
+        {
+            pTailwind = false;
+        }
+        display.text = "";
+        if (lastPos > 8)
         {
             print("Option 1");
             if(tailwindCalc && blueAvailable)
@@ -62,7 +76,7 @@ public class EnemyAI : CarController
                 blueSelect();
             }
         }
-        else if(cc.lastPos > 8)
+        else if(cc.lastPos > 7)
         {
             print("Option 3");
             if (redAvailable)
@@ -84,6 +98,36 @@ public class EnemyAI : CarController
             {
                 bigDamage(cc);
                 redSelect();
+            }
+            else
+            {
+                smallDamage(cc);
+                blueSelect();
+            }
+        }
+        else if(pTailwind && lastPos > 5)
+        {
+            if(redAvailable)
+            {
+                print("Tarred");
+                tarTrap(cc);
+                display.text = "Tarred";
+                redSelect();
+            }
+            else
+            {
+                smallDamage(cc);
+                blueSelect();
+            }
+        }
+        else if (pTailwind && lastPos < 5)
+        {
+            if (greenAvailable)
+            {
+                print("Shielded");
+                shield();
+                display.text = "Shielded";
+                blueSelect();
             }
             else
             {

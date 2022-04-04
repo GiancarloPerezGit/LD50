@@ -11,27 +11,15 @@ public class TurnController : MonoBehaviour
     public int healthE = 4;
     //Turn is the variable to track if it is the player's or the enemy's turn. Even turns are the player, odd turns are the enemy
     public int turn = 1;
-    //Points represent the amount of the race that a car has gone through. 50 points in a race length of 100 would mean the cars are halfway through the race.
+    //A variable to track how close to the end of the race the cars are at. Once points is equal to race length or greater, the race is over. This variable is used instead of turn in case we want a way to speed up a race.
     public int pointsP;
-    public int pointsE;
     //Race length is the amount of points needed to finish the race. 
     public int raceLength;
     //A variable used to halt the turn order until the cars have had their position updated.
     public int positionUpdateDone = 0;
-
-
-
+    //The test UI, used only for debugging. Delete when implementing final.
     public GameObject canvas;
-    private void Start()
-    {
-       
-    }
 
-    void Update()
-    {
-       
-    }
-    
     /* Method called after the CarController has calculated all the effects of an action.
      * This method will update the TurnController's copy of position of the cars to use for checking End Game conditions.
      * After updating the variables, it will then tell each car to move to their new positions and then wait until the movement is done.
@@ -74,7 +62,7 @@ public class TurnController : MonoBehaviour
         }
     }
 
-    /* Method to increment the points of each car. A reminder that the points a car owns is a representation of how far through the race it has gone.
+    /* Method to increment the points of each car.
      * After updating the points, the turn controller must check if the game is over.
      */
     public void addPoints()
@@ -85,8 +73,8 @@ public class TurnController : MonoBehaviour
 
     /* Method to check if the game is over.
      * There are 3 ways to win and 3 ways to lose.
-     * If a car reaches above 10 health, their competitor reaches below 0 health, or a car has more points than the length of the race, that car wins.
-     * If a car reaches below 0 health, their competitor reaches above 10 health, or a competitor has more points than the length of the race, that car loses.
+     * If a car reaches above 10 health, their competitor reaches below 0 health, or the race is over and the car is furthest ahead.
+     * If a car reaches below 0 health, their competitor reaches above 10 health, or the race is over and the car is furthest behind.
      * If none of the conditions are met, the turn changes.
      */
     public void gameOverCheck()
@@ -103,7 +91,21 @@ public class TurnController : MonoBehaviour
         }
         else if(pointsP >= raceLength)
         {
-            return;
+            if(healthP > healthE)
+            {
+                //Player wins
+                return;
+            }
+            else if (healthP < healthE)
+            {
+                //Player loses
+                return;
+            }
+            if (healthP == healthE)
+            {
+                //Player draws
+                return;
+            }
         }
 
         else
@@ -118,29 +120,33 @@ public class TurnController : MonoBehaviour
 
 
     /* Method that handles changing between the player and enemy's turn.
+     * Car variables are reset when a turn starts.
      */
     public void endTurn()
     {
         turn += 1;
         if (turn % 2 == 1)
         {
-            canvas.SetActive(true);
             print("Player turn");
+            //A player shield/tar only lasts until their next turn
             player.shielded = false;
             enemy.tarred = false;
+            //An enemy's action is based on the positions before the players move. Therefore we need to save the positions of player and enemy before the player makes an action.
             player.lastPos = healthP;
             enemy.lastPos = healthE;
-            //Turn on action UI
+            //The UI turns back on when its the players turn.
+            canvas.SetActive(true);
         }
         else
         {
+            //The UI turns back off when its the enemys turn.
             canvas.SetActive(false);
             print("Enemy turn");
+            //An enemy shield/tar only lasts until their next turn
             enemy.shielded = false;
             player.tarred = false;
+            //Query the enemy for its next move
             enemy.enemySelect(player);
-            //Turn off action UI
-            //Run enemy action method
         }
     }
 

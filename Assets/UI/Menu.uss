@@ -63,6 +63,7 @@
     -unity-font-definition: none;
     -unity-font: url('/Assets/UI/Fonts/Pixel Operator/PixelOperatorHBSC.ttf');
     color: rgb(210, 210, 210);
+    font-size: 18px;
 }
 
 .content-background {
