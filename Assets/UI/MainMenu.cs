@@ -79,7 +79,7 @@ public class MainMenu : MonoBehaviour
     private void OnMasterSliderChange(ChangeEvent<float> evt)
     {
         Debug.Log("Master volume = " + masterSlider.value);
-        //PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
+        PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
     }
     private void OnSongSliderChange(ChangeEvent<float> evt)
     {
