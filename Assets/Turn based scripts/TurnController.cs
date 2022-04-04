@@ -26,6 +26,23 @@ public class TurnController : MonoBehaviour
     */
     public void valueSync()
     {
+        if(healthP > player.position)
+        {
+            //Player has moved backwards
+        }
+        else if(healthP < player.position)
+        {
+            //Player has moved forwards
+        }
+        else if (healthE > enemy.position)
+        {
+            //Enemy has moved backwards
+        }
+        else if (healthE < enemy.position)
+        {
+            //Enemy has moved forwards
+        }
+
         healthP = player.position;
         healthE = enemy.position;
         player.changePosition();
