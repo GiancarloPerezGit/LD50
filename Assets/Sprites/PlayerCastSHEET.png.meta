@@ -120,7 +120,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 60
+        width: 62
         height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -139,9 +139,9 @@ TextureImporter:
       name: PlayerCastSHEET_1
       rect:
         serializedVersion: 2
-        x: 60
+        x: 62
         y: 0
-        width: 60
+        width: 62
         height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -160,9 +160,9 @@ TextureImporter:
       name: PlayerCastSHEET_2
       rect:
         serializedVersion: 2
-        x: 120
+        x: 124
         y: 0
-        width: 60
+        width: 62
         height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -181,9 +181,9 @@ TextureImporter:
       name: PlayerCastSHEET_3
       rect:
         serializedVersion: 2
-        x: 180
+        x: 186
         y: 0
-        width: 60
+        width: 62
         height: 53
       alignment: 0
       pivot: {x: 0, y: 0}
