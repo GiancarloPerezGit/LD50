@@ -5,15 +5,20 @@ using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
 
     private UIDocument uiDoc;
-    public Button playButton;
+
+    public bool isPaused = false;
+
+    public Button resumeButton;
     public Button settingsButton;
     public Button creditsButton;
+    public Button quitButton;
 
-    public VisualElement homeScreen;
+    public VisualElement overlayScreen;
+    public VisualElement pauseScreen;
     public VisualElement settingsScreen;
     public VisualElement creditsScreen;
 
@@ -35,11 +40,13 @@ public class MainMenu : MonoBehaviour
     {
         VisualElement root = uiDoc.rootVisualElement;
 
-        playButton = root.Q<Button>("playbutton");
+        resumeButton = root.Q<Button>("resumebutton");
         settingsButton = root.Q<Button>("settingsbutton");
         creditsButton = root.Q<Button>("creditsbutton");
+        quitButton = root.Q<Button>("quitbutton");
 
-        homeScreen = root.Q<VisualElement>("HomeScreen");
+        overlayScreen = root.Q<VisualElement>("OverlayScreen");
+        pauseScreen = root.Q<VisualElement>("PauseScreen");
         settingsScreen = root.Q<VisualElement>("SettingsScreen");
         creditsScreen = root.Q<VisualElement>("CreditsScreen");
 
@@ -53,13 +60,15 @@ public class MainMenu : MonoBehaviour
 
         VolumeSliderUpdate();
 
-        homeScreen.style.display = DisplayStyle.Flex;
+        overlayScreen.style.display = DisplayStyle.None;
+        pauseScreen.style.display = DisplayStyle.Flex;
         settingsScreen.style.display = DisplayStyle.None;
         creditsScreen.style.display = DisplayStyle.None;
 
-        playButton.clicked += PlayButtonPressed;
+        resumeButton.clicked += ResumeButtonPressed;
         settingsButton.clicked += SettingsButtonPressed;
         creditsButton.clicked += CreditsButtonPressed;
+        quitButton.clicked += QuitButtonPressed;
 
         sbackButton.clicked += BackButtonPressed;
         cbackButton.clicked += BackButtonPressed;
@@ -68,7 +77,33 @@ public class MainMenu : MonoBehaviour
         songSlider.RegisterValueChangedCallback(OnSongSliderChange);
         soundSlider.RegisterValueChangedCallback(OnSoundSliderChange);
         announcerSlider.RegisterValueChangedCallback(OnAnnouncerSliderChange);
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PausePressed();
+        }
+    }
+
+    public void PausePressed()
+    {
+        if (isPaused)
+        {
+            overlayScreen.style.display = DisplayStyle.None;
+            isPaused = false;
+
+            Time.timeScale = 1f;
+
+        } else
+        {
+            overlayScreen.style.display = DisplayStyle.Flex;
+            isPaused = true;
+
+            Time.timeScale = 0f;
+        }
     }
 
     public void VolumeSliderUpdate()
@@ -91,24 +126,24 @@ public class MainMenu : MonoBehaviour
     }
     private void OnAnnouncerSliderChange(ChangeEvent<float> evt)
     {
-        Debug.Log("Announcer volume = " + announcerSlider.value); 
+        Debug.Log("Announcer volume = " + announcerSlider.value);
     }
 
-    void PlayButtonPressed()
+    void ResumeButtonPressed()
     {
-        SceneManager.LoadScene("AndresScene");
+        PausePressed();
     }
 
     void SettingsButtonPressed()
     {
-        homeScreen.style.display = DisplayStyle.None;
+        pauseScreen.style.display = DisplayStyle.None;
         creditsScreen.style.display = DisplayStyle.None;
         settingsScreen.style.display = DisplayStyle.Flex;
     }
 
     void CreditsButtonPressed()
     {
-        homeScreen.style.display = DisplayStyle.None;
+        pauseScreen.style.display = DisplayStyle.None;
         settingsScreen.style.display = DisplayStyle.None;
         creditsScreen.style.display = DisplayStyle.Flex;
     }
@@ -117,12 +152,13 @@ public class MainMenu : MonoBehaviour
     {
         settingsScreen.style.display = DisplayStyle.None;
         creditsScreen.style.display = DisplayStyle.None;
-        homeScreen.style.display = DisplayStyle.Flex;
+        pauseScreen.style.display = DisplayStyle.Flex;
     }
 
-    // Update is called once per frame
-    void Update()
+    void QuitButtonPressed()
     {
-        
+        isPaused = false;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("TestMainMenuAndres");
     }
 }
