@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,39 +8,36 @@ public class TestMusicLayer : MonoBehaviour
 
     public MusicLayerSystem musicLayerSystem;
 
-    [Range(75, 200)]
-    public int maxPoints;
+    private int maxPoints = 100;
 
     public int currentPoints = 0;
+    [SerializeField]
+    TurnController turnController;
     // Start is called before the first frame update
     void Start()
     {
-        
+       if (turnController == null)
+            turnController = FindObjectOfType<TurnController>();
+
+
+        maxPoints = turnController.GetRaceLength();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
-            RandomAdder();
 
-        if (Input.GetKeyDown(KeyCode.D))
-            RandomSubtractor();
+
+        CalculatePlayerProgression();
 
 
         LayerChecker();
     }
 
-    void RandomAdder() //assign to a keycode 
+    private void CalculatePlayerProgression()
     {
-        currentPoints += Random.Range(10, 41);
+       currentPoints = turnController.pointsP;
     }
-
-    void RandomSubtractor() //assign to a keycode 
-    {
-        currentPoints -= Random.Range(10, 41);
-    }
-
 
     void LayerChecker() //really hacky way at checking states, but still useable
     {

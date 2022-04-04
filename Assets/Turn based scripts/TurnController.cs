@@ -111,6 +111,11 @@ public class TurnController : MonoBehaviour
             endTurn();
         }
     }
+    
+
+
+
+
 
     /* Method that handles changing between the player and enemy's turn.
      */
