@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class CarController : MonoBehaviour
 {
     public int position = 5;
@@ -14,10 +13,13 @@ public class CarController : MonoBehaviour
     public bool updatePosition = false;
     public float oldPosition;
     public int lastPos = 5;
+    public Animator anim;
+    public ParticleSystem casting;
+    private ParticleSystem.EmissionModule emissionCast;
     // Start is called before the first frame update
     void Start()
     {
-        
+        emissionCast = casting.emission;
     }
 
     // Update is called once per frame
@@ -79,7 +81,11 @@ public class CarController : MonoBehaviour
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
     IEnumerator bigDamageAnimation(CarController cc)
     {
+        anim.SetBool("isCasting", true);
+        emissionCast.enabled = true;
         yield return new WaitForSeconds(1);
+        anim.SetBool("isCasting", false);
+        emissionCast.enabled = false;
         bigDamageEffects(cc);
     }
 
@@ -105,7 +111,11 @@ public class CarController : MonoBehaviour
 
     IEnumerator tarTrapAnimation(CarController cc)
     {
+        anim.SetBool("isCasting", true);
+        emissionCast.enabled = true;
         yield return new WaitForSeconds(1);
+        anim.SetBool("isCasting", false);
+        emissionCast.enabled = false;
         tarTrapEffects(cc);
     }
 
@@ -127,7 +137,11 @@ public class CarController : MonoBehaviour
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
     IEnumerator smallDamageAnimation(CarController cc)
     {
+        anim.SetBool("isCasting", true);
+        emissionCast.enabled = true;
         yield return new WaitForSeconds(1);
+        anim.SetBool("isCasting", false);
+        emissionCast.enabled = false;
         smallDamageEffects(cc);
     }
 
@@ -216,7 +230,11 @@ public class CarController : MonoBehaviour
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
     IEnumerator shieldAnimation()
     {
+        anim.SetBool("isCasting", true);
+        emissionCast.enabled = true;
         yield return new WaitForSeconds(1);
+        anim.SetBool("isCasting", false);
+        emissionCast.enabled = false;
         shieldEffects();
     }
 
