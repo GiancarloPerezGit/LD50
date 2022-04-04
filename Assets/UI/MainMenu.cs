@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField]
+    private AudioMixer audioMixer;
 
     private UIDocument uiDoc;
     public Button playButton;
@@ -99,23 +102,23 @@ public class MainMenu : MonoBehaviour
 
     private void OnMasterSliderChange(ChangeEvent<float> evt)
     {
-        masterVolumeLevel = masterSlider.value;
-        PlayerPrefs.SetFloat("MasterVolume", masterVolumeLevel);
-
+        //masterVolumeLevel = masterSlider.value;
+        //PlayerPrefs.SetFloat("MasterVolume", masterVolumeLevel);
+        audioMixer.SetFloat("MasterVolume", (Mathf.Log10(((masterSlider.value + 1.0f) * 0.00000099009901f)) * 40) + 160);
         //Adjust the game's volume here: GameVolume = masterVolumeLevel;
     }
     private void OnSongSliderChange(ChangeEvent<float> evt)
     {
-        songVolumeLevel = songSlider.value;
-        PlayerPrefs.SetFloat("SongVolume", songVolumeLevel);
-
+        //songVolumeLevel = songSlider.value;
+        //PlayerPrefs.SetFloat("SongVolume", songVolumeLevel);
+        audioMixer.SetFloat("MusicVolume", (Mathf.Log10(((songSlider.value + 1.0f) * 0.00000099009901f)) * 40) + 160);
         //Adjust the game's volume here: GameVolume = songVolumeLevel;
     }
     private void OnSoundSliderChange(ChangeEvent<float> evt)
     {
-        soundVolumeLevel = soundSlider.value;
-        PlayerPrefs.SetFloat("SoundVolume", soundVolumeLevel);
-
+        //soundVolumeLevel = soundSlider.value;
+       // PlayerPrefs.SetFloat("SoundVolume", soundVolumeLevel);
+        audioMixer.SetFloat("SFXVolume", (Mathf.Log10(((soundSlider.value + 1.0f) * 0.00000099009901f)) * 40) + 160);
         //Adjust the game's volume here: GameVolume = soundVolumeLevel;
     }
     private void OnAnnouncerSliderChange(ChangeEvent<float> evt)
