@@ -79,8 +79,7 @@ public class TurnController : MonoBehaviour
      */
     public void addPoints()
     {
-        pointsP += healthP;
-        pointsE += healthE;
+        pointsP += 1;
         gameOverCheck();
     }
 
@@ -102,6 +101,11 @@ public class TurnController : MonoBehaviour
             //Player loses
             return;
         }
+        else if(pointsP >= raceLength)
+        {
+            return;
+        }
+
         else
         {
             endTurn();
@@ -119,7 +123,8 @@ public class TurnController : MonoBehaviour
             print("Player turn");
             player.shielded = false;
             enemy.tarred = false;
-            
+            player.lastPos = healthP;
+            enemy.lastPos = healthE;
             //Turn on action UI
         }
         else

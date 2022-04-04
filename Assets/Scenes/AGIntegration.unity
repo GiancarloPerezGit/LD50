@@ -1049,9 +1049,11 @@ MonoBehaviour:
   newVectorPosition: {x: 0, y: 0, z: 0}
   updatePosition: 0
   oldPosition: 5
+  lastPos: 5
   redAvailable: 1
   blueAvailable: 1
   greenAvailable: 1
+  tailwindCalc: 0
 --- !u!1 &433124387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1720,7 +1722,7 @@ GameObject:
   - component: {fileID: 636000479}
   - component: {fileID: 636000481}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Turn controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1745,7 +1747,7 @@ MonoBehaviour:
   turn: 1
   pointsP: 0
   pointsE: 0
-  raceLength: 100
+  raceLength: 10
   positionUpdateDone: 0
   canvas: {fileID: 1823793673}
 --- !u!4 &636000480
@@ -2570,6 +2572,7 @@ MonoBehaviour:
   newVectorPosition: {x: 0, y: 0, z: 0}
   updatePosition: 0
   oldPosition: 0
+  lastPos: 5
 --- !u!1 &962024417
 GameObject:
   m_ObjectHideFlags: 0

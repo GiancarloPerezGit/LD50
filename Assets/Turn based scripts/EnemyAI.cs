@@ -11,7 +11,7 @@ public class EnemyAI : CarController
 
     public void redSelect()
     {
-        redAvailable = true;
+        redAvailable = false;
         blueAvailable = true;
         greenAvailable = false;
     }
@@ -30,12 +30,13 @@ public class EnemyAI : CarController
 
     public void enemySelect(CarController cc)
     {
-        if(cc.lastPos - lastPos <= 3)
+        if(cc.lastPos - lastPos <= 3 && cc.lastPos != lastPos)
         {
             tailwindCalc = true;
         }
         if(lastPos > 8)
         {
+            print("Option 1");
             if(tailwindCalc && blueAvailable)
             {
                 smallSpeed();
@@ -49,7 +50,8 @@ public class EnemyAI : CarController
         }
         else if(lastPos < 2)
         {
-            if(greenAvailable)
+            print("Option 2");
+            if (greenAvailable)
             {
                 bigSpeed();
                 greenSelect();
@@ -62,7 +64,8 @@ public class EnemyAI : CarController
         }
         else if(cc.lastPos > 8)
         {
-            if(redAvailable)
+            print("Option 3");
+            if (redAvailable)
             {
                 bigDamage(cc);
                 redSelect();
@@ -76,6 +79,7 @@ public class EnemyAI : CarController
         }
         else if(cc.lastPos < 2)
         {
+            print("Option 4");
             if (redAvailable)
             {
                 bigDamage(cc);
@@ -87,8 +91,9 @@ public class EnemyAI : CarController
                 blueSelect();
             }
         }
-        else if(tailwind)
+        else if(tailwindCalc)
         {
+            print("Option 5");
             if (greenAvailable)
             {
                 bigSpeed();
@@ -102,14 +107,15 @@ public class EnemyAI : CarController
         }
         else
         {
-            if(redAvailable)
+            print("Option 6");
+            if (redAvailable)
             {
                 bigDamage(cc);
                 redSelect();
             }
             else
             {
-                smallDamage(cc);
+                smallSpeed();
                 blueSelect();
             }
         }

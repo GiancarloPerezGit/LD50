@@ -24,7 +24,7 @@ public class ThreeRules : MonoBehaviour
     {
         foreach (GameObject action in red)
         {
-            action.GetComponent<Button>().interactable = true;
+            action.GetComponent<Button>().interactable = false;
         }
         foreach (GameObject action in blue)
         {
