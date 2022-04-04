@@ -127,7 +127,7 @@ public class EnemyAI : CarController
                 print("Shielded");
                 shield();
                 display.text = "Shielded";
-                blueSelect();
+                greenSelect();
             }
             else
             {

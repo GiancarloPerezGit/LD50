@@ -38,6 +38,7 @@ public class TurnController : MonoBehaviour
      */
     public void positionUpdated()
     {
+        
         positionUpdateDone += 1;
         if (positionUpdateDone == 2)
         {
@@ -124,6 +125,10 @@ public class TurnController : MonoBehaviour
         {
             print("Player turn");
             //A player shield/tar only lasts until their next turn
+            if(player.shielded)
+            {
+                player.shieldAnim.SetActive(false);
+            }
             player.shielded = false;
             enemy.tarred = false;
             //An enemy's action is based on the positions before the players move. Therefore we need to save the positions of player and enemy before the player makes an action.

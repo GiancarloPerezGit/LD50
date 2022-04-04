@@ -14,6 +14,12 @@ public class CarController : MonoBehaviour
     public float oldPosition;
     public int lastPos = 5;
     public Animator anim;
+    public GameObject idleRoadAnim;
+    public GameObject smallNitroChargeAnim;
+    public GameObject smallNitroCloudAnim;
+    public GameObject bigNitroChargeAnim;
+    public GameObject bigNitroCloudAnim;
+    public GameObject shieldAnim;
     public ParticleSystem casting;
     private ParticleSystem.EmissionModule emissionCast;
     // Start is called before the first frame update
@@ -27,11 +33,15 @@ public class CarController : MonoBehaviour
     {
         if(updatePosition)
         {
-            float step = Mathf.Abs(position - oldPosition) * 0.3f * Time.deltaTime;
+            float step = Mathf.Abs(((position - 5) * 0.3f) - oldPosition) * Time.deltaTime;
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, newVectorPosition, step);
             if(Vector3.Distance(transform.localPosition, newVectorPosition) < 0.001f)
             {
                 updatePosition = false;
+                idleRoadAnim.SetActive(true);
+                smallNitroCloudAnim.SetActive(false);
+                bigNitroCloudAnim.SetActive(false);
+
                 tc.positionUpdated();
             }
         }
@@ -171,7 +181,11 @@ public class CarController : MonoBehaviour
     IEnumerator smallSpeedAnimation()
     {
         print("Coroutine start");
+        smallNitroChargeAnim.SetActive(true);
         yield return new WaitForSeconds(1);
+        idleRoadAnim.SetActive(false);
+        smallNitroChargeAnim.SetActive(false);
+        smallNitroCloudAnim.SetActive(true);
         print("Coroutine end");
         smallSpeedEffects();
     }
@@ -203,7 +217,13 @@ public class CarController : MonoBehaviour
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
     IEnumerator bigSpeedAnimation()
     {
+        print("Coroutine start");
+        bigNitroChargeAnim.SetActive(true);
         yield return new WaitForSeconds(1);
+        idleRoadAnim.SetActive(false);
+        bigNitroChargeAnim.SetActive(false);
+        bigNitroCloudAnim.SetActive(true);
+        print("Coroutine end");
         bigSpeedEffects();
     }
 
@@ -235,6 +255,8 @@ public class CarController : MonoBehaviour
         yield return new WaitForSeconds(1);
         anim.SetBool("isCasting", false);
         emissionCast.enabled = false;
+        shieldAnim.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
         shieldEffects();
     }
 
