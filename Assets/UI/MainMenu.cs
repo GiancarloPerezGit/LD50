@@ -131,7 +131,7 @@ public class MainMenu : MonoBehaviour
 
     void PlayButtonPressed()
     {
-        SceneManager.LoadScene("AndresScene"); //Replace with the actual Scene
+        SceneManager.LoadScene("SAPGIntegration"); //Replace with the actual Scene
     }
 
     void SettingsButtonPressed()
