@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class CarController : MonoBehaviour
 {
     public int position = 5;
@@ -14,29 +13,63 @@ public class CarController : MonoBehaviour
     public bool updatePosition = false;
     public float oldPosition;
     public int lastPos = 5;
+    public Material defaultColor;
+    public Material tarredColor;
+    public Animator anim;
+    public GameObject idleRoadAnim;
+    public GameObject smallNitroChargeAnim;
+    public GameObject smallNitroCloudAnim;
+    public GameObject bigNitroChargeAnim;
+    public GameObject bigNitroCloudAnim;
+    public GameObject shieldAnim;
+    public GameObject sparkAnim;
+
+    public ParticleSystem casting;
+    public ParticleSystem sparkBase;
+    public ParticleSystem combustionBase;
+    public ParticleSystem combustionSmoke;
+    public ParticleSystem tarBase;
+    public ParticleSystem tarBlob;
+
+    private ParticleSystem.EmissionModule emissionCast;
+    private ParticleSystem.EmissionModule emissionBaseSpark;
+    private ParticleSystem.EmissionModule emissionBaseCombustion;
+    private ParticleSystem.EmissionModule emissionSmoke;
+    private ParticleSystem.EmissionModule emissionTarBase;
+    private ParticleSystem.EmissionModule emissionTar;
 
     public AudioClip bigDamageSFX;
     public AudioClip smallDamageSFX;
     public AudioClip shieldSFX;
     public AudioClip tarTrapSFX;
     public AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        emissionCast = casting.emission;
+        emissionBaseSpark = sparkBase.emission;
+        emissionBaseCombustion = combustionBase.emission;
+        emissionSmoke = combustionSmoke.emission;
+        emissionTarBase = tarBase.emission;
+        emissionTar = tarBlob.emission;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(updatePosition)
+        if (updatePosition)
         {
-            float step = Mathf.Abs(position - oldPosition) * 0.3f * Time.deltaTime;
+            float step = Mathf.Abs(((position - 5) * 0.3f) - oldPosition) * Time.deltaTime;
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, newVectorPosition, step);
-           
-            if(Vector3.Distance(transform.localPosition, newVectorPosition) < 0.001f)
+
+            if (Vector3.Distance(transform.localPosition, newVectorPosition) < 0.001f)
             {
                 updatePosition = false;
+                idleRoadAnim.SetActive(true);
+                smallNitroCloudAnim.SetActive(false);
+                bigNitroCloudAnim.SetActive(false);
+
                 tc.positionUpdated();
             }
         }
@@ -66,7 +99,7 @@ public class CarController : MonoBehaviour
         }
         tc.valueSync();
     }
-    
+
     public void changePosition()
     {
         newVectorPosition = new Vector3((position - 5) * 0.3f, transform.localPosition.y, transform.localPosition.z);
@@ -87,7 +120,16 @@ public class CarController : MonoBehaviour
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
     IEnumerator bigDamageAnimation(CarController cc)
     {
-        yield return new WaitForSeconds(1);
+        anim.SetBool("isCasting", true);
+        emissionCast.enabled = true;
+        emissionBaseCombustion.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        emissionCast.enabled = false;
+        emissionSmoke.enabled = true;
+        anim.SetBool("isCasting", false);
+        yield return new WaitForSeconds(0.5f);
+        emissionBaseCombustion.enabled = false;
+        emissionSmoke.enabled = false;
         bigDamageEffects(cc);
     }
 
@@ -95,7 +137,7 @@ public class CarController : MonoBehaviour
     public void bigDamageEffects(CarController cc)
     {
         //Damage taken while in position 8 or higher is increased by 1 as the driver has a harder time maintaining control at high speeds
-        if(cc.position >= 8)
+        if (cc.position >= 8)
         {
             cc.takeDamage(3);
         }
@@ -114,7 +156,18 @@ public class CarController : MonoBehaviour
 
     IEnumerator tarTrapAnimation(CarController cc)
     {
-        yield return new WaitForSeconds(1);
+        anim.SetBool("isCasting", true);
+        emissionCast.enabled = true;
+        emissionTarBase.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        emissionCast.enabled = false;
+        emissionTar.enabled = true;
+        anim.SetBool("isCasting", false);
+        yield return new WaitForSeconds(0.5f);
+        emissionTarBase.enabled = false;
+        emissionTar.enabled = false;
+        cc.gameObject.GetComponent<Renderer>().material = tarredColor;
+        cc.idleRoadAnim.GetComponent<Renderer>().material = tarredColor;
         tarTrapEffects(cc);
     }
 
@@ -137,7 +190,16 @@ public class CarController : MonoBehaviour
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
     IEnumerator smallDamageAnimation(CarController cc)
     {
-        yield return new WaitForSeconds(1);
+        anim.SetBool("isCasting", true);
+        emissionCast.enabled = true;
+        emissionBaseSpark.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("isCasting", false);
+        emissionCast.enabled = false;
+        sparkAnim.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        emissionBaseSpark.enabled = false;
+        sparkAnim.SetActive(false);
         smallDamageEffects(cc);
     }
 
@@ -167,7 +229,11 @@ public class CarController : MonoBehaviour
     IEnumerator smallSpeedAnimation()
     {
         print("Coroutine start");
+        smallNitroChargeAnim.SetActive(true);
         yield return new WaitForSeconds(1);
+        idleRoadAnim.SetActive(false);
+        smallNitroChargeAnim.SetActive(false);
+        smallNitroCloudAnim.SetActive(true);
         print("Coroutine end");
         smallSpeedEffects();
     }
@@ -199,14 +265,20 @@ public class CarController : MonoBehaviour
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
     IEnumerator bigSpeedAnimation()
     {
+        print("Coroutine start");
+        bigNitroChargeAnim.SetActive(true);
         yield return new WaitForSeconds(1);
+        idleRoadAnim.SetActive(false);
+        bigNitroChargeAnim.SetActive(false);
+        bigNitroCloudAnim.SetActive(true);
+        print("Coroutine end");
         bigSpeedEffects();
     }
 
     //Method that applies the effect of the move as determined by the first method. If the move has no variation then this method will always be called.
     public void bigSpeedEffects()
     {
-        if(tailwind)
+        if (tailwind)
         {
             speedUp(3);
         }
@@ -227,7 +299,13 @@ public class CarController : MonoBehaviour
     //Coroutine that handles the animation of the move. The effects of the move are applied after the animation has completed.
     IEnumerator shieldAnimation()
     {
+        anim.SetBool("isCasting", true);
+        emissionCast.enabled = true;
         yield return new WaitForSeconds(1);
+        anim.SetBool("isCasting", false);
+        emissionCast.enabled = false;
+        shieldAnim.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
         shieldEffects();
     }
 

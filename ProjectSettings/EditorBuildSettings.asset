@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AndresScene.unity
     guid: 923572ad1bf0bb7438128f641d70b954
+  - enabled: 1
+    path: Assets/Scenes/SAPGIntegration.unity
+    guid: 162a781397473ed4796d42c4444edf8a
   m_configObjects: {}

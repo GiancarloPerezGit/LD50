@@ -1050,6 +1050,22 @@ MonoBehaviour:
   updatePosition: 0
   oldPosition: 5
   lastPos: 5
+  defaultColor: {fileID: 0}
+  tarredColor: {fileID: 0}
+  anim: {fileID: 0}
+  idleRoadAnim: {fileID: 0}
+  smallNitroChargeAnim: {fileID: 0}
+  smallNitroCloudAnim: {fileID: 0}
+  bigNitroChargeAnim: {fileID: 0}
+  bigNitroCloudAnim: {fileID: 0}
+  shieldAnim: {fileID: 0}
+  sparkAnim: {fileID: 0}
+  casting: {fileID: 0}
+  sparkBase: {fileID: 0}
+  combustionBase: {fileID: 0}
+  combustionSmoke: {fileID: 0}
+  tarBase: {fileID: 0}
+  tarBlob: {fileID: 0}
   bigDamageSFX: {fileID: 0}
   smallDamageSFX: {fileID: 0}
   shieldSFX: {fileID: 0}
@@ -1733,6 +1749,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -930329702380817734, guid: 071703757da963741b2b5395b3d4af77, type: 2}
     - target: {fileID: 2684832732940754114, guid: b2010fe757726714db3eb7c0e753714a, type: 3}
+      propertyPath: m_Volume
+      value: 0.424
+      objectReference: {fileID: 0}
+    - target: {fileID: 2684832732940754114, guid: b2010fe757726714db3eb7c0e753714a, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
       objectReference: {fileID: -930329702380817734, guid: 071703757da963741b2b5395b3d4af77, type: 2}
@@ -1916,6 +1936,9 @@ MonoBehaviour:
   raceLength: 20
   positionUpdateDone: 0
   canvas: {fileID: 1823793673}
+  audioSource: {fileID: 0}
+  revForward: {fileID: 0}
+  revBackward: {fileID: 0}
 --- !u!4 &636000480
 Transform:
   m_ObjectHideFlags: 0
@@ -2868,6 +2891,22 @@ MonoBehaviour:
   updatePosition: 0
   oldPosition: 0
   lastPos: 5
+  defaultColor: {fileID: 0}
+  tarredColor: {fileID: 0}
+  anim: {fileID: 0}
+  idleRoadAnim: {fileID: 0}
+  smallNitroChargeAnim: {fileID: 0}
+  smallNitroCloudAnim: {fileID: 0}
+  bigNitroChargeAnim: {fileID: 0}
+  bigNitroCloudAnim: {fileID: 0}
+  shieldAnim: {fileID: 0}
+  sparkAnim: {fileID: 0}
+  casting: {fileID: 0}
+  sparkBase: {fileID: 0}
+  combustionBase: {fileID: 0}
+  combustionSmoke: {fileID: 0}
+  tarBase: {fileID: 0}
+  tarBlob: {fileID: 0}
   bigDamageSFX: {fileID: 8300000, guid: 1784a6df0c40a724a8be69cdab39fed9, type: 3}
   smallDamageSFX: {fileID: 8300000, guid: 8b90348c3b3d89744bcca4c4ac4fcbaf, type: 3}
   shieldSFX: {fileID: 8300000, guid: a31e1910b7ba89e40848b124671a2bb5, type: 3}

@@ -9,7 +9,6 @@ public class EnemyAI : CarController
     public bool greenAvailable = true;
     public bool tailwindCalc = false;
     public bool pTailwind = false;
-    public Text display;
     public void redSelect()
     {
         redAvailable = false;
@@ -47,7 +46,7 @@ public class EnemyAI : CarController
         {
             pTailwind = false;
         }
-        display.text = "";
+        
         if (lastPos > 8)
         {
             print("Option 1");
@@ -111,7 +110,7 @@ public class EnemyAI : CarController
             {
                 print("Tarred");
                 tarTrap(cc);
-                display.text = "Tarred";
+                
                 redSelect();
             }
             else
@@ -126,8 +125,8 @@ public class EnemyAI : CarController
             {
                 print("Shielded");
                 shield();
-                display.text = "Shielded";
-                blueSelect();
+                
+                greenSelect();
             }
             else
             {
