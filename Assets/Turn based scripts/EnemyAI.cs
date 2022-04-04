@@ -8,7 +8,7 @@ public class EnemyAI : CarController
     public bool blueAvailable = true;
     public bool greenAvailable = true;
     public bool tailwindCalc = false;
-
+    public bool pTailwind = false;
     public void redSelect()
     {
         redAvailable = false;
@@ -34,7 +34,19 @@ public class EnemyAI : CarController
         {
             tailwindCalc = true;
         }
-        if(lastPos > 8)
+        else
+        {
+            tailwindCalc = false;
+        }
+        if (lastPos - cc.lastPos <= 3 && cc.lastPos != lastPos)
+        {
+            pTailwind = true;
+        }
+        else
+        {
+            pTailwind = false;
+        }
+        if (lastPos > 8)
         {
             print("Option 1");
             if(tailwindCalc && blueAvailable)
@@ -62,7 +74,7 @@ public class EnemyAI : CarController
                 blueSelect();
             }
         }
-        else if(cc.lastPos > 8)
+        else if(cc.lastPos > 7)
         {
             print("Option 3");
             if (redAvailable)
@@ -83,6 +95,19 @@ public class EnemyAI : CarController
             if (redAvailable)
             {
                 bigDamage(cc);
+                redSelect();
+            }
+            else
+            {
+                smallDamage(cc);
+                blueSelect();
+            }
+        }
+        else if(pTailwind)
+        {
+            if(redAvailable)
+            {
+                tarTrap(cc);
                 redSelect();
             }
             else
