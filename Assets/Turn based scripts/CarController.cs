@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    public int position = 4;
+    public int position = 5;
     public bool tailwind = false;
     public bool tarred = false;
     public bool shielded = false;
@@ -13,6 +13,7 @@ public class CarController : MonoBehaviour
     public Vector3 newVectorPosition;
     public bool updatePosition = false;
     public float oldPosition;
+    public int lastPos = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,9 +25,9 @@ public class CarController : MonoBehaviour
     {
         if(updatePosition)
         {
-            float step = Mathf.Abs(position - oldPosition) * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, newVectorPosition, step);
-            if(Vector3.Distance(transform.position, newVectorPosition) < 0.001f)
+            float step = Mathf.Abs(position - oldPosition) * 0.3f * Time.deltaTime;
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, newVectorPosition, step);
+            if(Vector3.Distance(transform.localPosition, newVectorPosition) < 0.001f)
             {
                 updatePosition = false;
                 tc.positionUpdated();
@@ -61,13 +62,14 @@ public class CarController : MonoBehaviour
     
     public void changePosition()
     {
-        newVectorPosition = new Vector3(position - 5, transform.position.y, transform.position.z);
-        oldPosition = transform.position.x;
+        newVectorPosition = new Vector3((position - 5) * 0.3f, transform.localPosition.y, transform.localPosition.z);
+        oldPosition = transform.localPosition.x;
         updatePosition = true;
     }
 
 
     #region RED ABILTIES
+    #region BIG DAMAGE
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void bigDamage(CarController cc)
     {
@@ -94,7 +96,8 @@ public class CarController : MonoBehaviour
             cc.takeDamage(2);
         }
     }
-    
+    #endregion
+    #region TAR TRAP
     public void tarTrap(CarController cc)
     {
         StartCoroutine(tarTrapAnimation(cc));
@@ -112,7 +115,9 @@ public class CarController : MonoBehaviour
         tc.valueSync();
     }
     #endregion
+    #endregion
     #region BLUE ABILTIES
+    #region SMALL DAMAGE
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void smallDamage(CarController cc)
     {
@@ -139,7 +144,8 @@ public class CarController : MonoBehaviour
             cc.takeDamage(1);
         }
     }
-
+    #endregion
+    #region SMALL SPEED
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void smallSpeed()
     {
@@ -171,7 +177,9 @@ public class CarController : MonoBehaviour
         }
     }
     #endregion
+    #endregion
     #region GREEN ABILTIES
+    #region BIG SPEED
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void bigSpeed()
     {
@@ -197,6 +205,8 @@ public class CarController : MonoBehaviour
             speedUp(2);
         }
     }
+    #endregion
+    #region SHIELD
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void shield()
     {
@@ -216,5 +226,6 @@ public class CarController : MonoBehaviour
         shielded = true;
         tc.valueSync();
     }
+    #endregion
     #endregion
 }
