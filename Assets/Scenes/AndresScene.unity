@@ -603,7 +603,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.90619135, b: 0.3622641, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 109
@@ -747,6 +747,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPaused: 0
+  masterVolumeLevel: 0
+  songVolumeLevel: 0
+  soundVolumeLevel: 0
+  announcerVolumeLevel: 0
 --- !u!1 &430490293
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,7 +978,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.90619135, b: 0.3622641, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 109
