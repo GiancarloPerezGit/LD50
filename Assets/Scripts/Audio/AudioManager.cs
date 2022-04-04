@@ -192,4 +192,11 @@ public class AudioManager : MonoBehaviour
         musicVolume = musicSource.volume = volume;
       
     }
+
+
+    public void PlaySFX(AudioClip clip)
+    {
+        
+        musicSource.PlayOneShot(clip);
+    }
 }
