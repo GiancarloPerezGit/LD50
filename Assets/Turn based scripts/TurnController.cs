@@ -19,6 +19,8 @@ public class TurnController : MonoBehaviour
     //A variable used to halt the turn order until the cars have had their position updated.
     public int positionUpdateDone = 0;
 
+
+
     public GameObject canvas;
     private void Start()
     {
@@ -90,12 +92,12 @@ public class TurnController : MonoBehaviour
      */
     public void gameOverCheck()
     {
-        if (healthP > 10 || healthE < 0 || (pointsP >= raceLength && pointsP >= pointsE))
+        if (healthP > 10 || healthE < 0)
         {
             //Player wins
             return;
         }
-        else if (healthE > 10 || healthP < 0 || (pointsE >= raceLength && pointsE > pointsP))
+        else if (healthE > 10 || healthP < 0)
         {
             //Player loses
             return;
