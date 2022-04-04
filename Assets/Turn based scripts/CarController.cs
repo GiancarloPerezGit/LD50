@@ -22,6 +22,13 @@ public class CarController : MonoBehaviour
     public GameObject shieldAnim;
     public ParticleSystem casting;
     private ParticleSystem.EmissionModule emissionCast;
+
+    public AudioClip bigDamageSFX;
+    public AudioClip smallDamageSFX;
+    public AudioClip shieldSFX;
+    public AudioClip tarTrapSFX;
+    public AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,11 +38,12 @@ public class CarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(updatePosition)
+        if (updatePosition)
         {
             float step = Mathf.Abs(((position - 5) * 0.3f) - oldPosition) * Time.deltaTime;
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, newVectorPosition, step);
-            if(Vector3.Distance(transform.localPosition, newVectorPosition) < 0.001f)
+
+            if (Vector3.Distance(transform.localPosition, newVectorPosition) < 0.001f)
             {
                 updatePosition = false;
                 idleRoadAnim.SetActive(true);
@@ -71,7 +79,7 @@ public class CarController : MonoBehaviour
         }
         tc.valueSync();
     }
-    
+
     public void changePosition()
     {
         newVectorPosition = new Vector3((position - 5) * 0.3f, transform.localPosition.y, transform.localPosition.z);
@@ -85,6 +93,7 @@ public class CarController : MonoBehaviour
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void bigDamage(CarController cc)
     {
+        audioSource.PlayOneShot(bigDamageSFX);
         StartCoroutine(bigDamageAnimation(cc));
     }
 
@@ -103,7 +112,7 @@ public class CarController : MonoBehaviour
     public void bigDamageEffects(CarController cc)
     {
         //Damage taken while in position 8 or higher is increased by 1 as the driver has a harder time maintaining control at high speeds
-        if(cc.position >= 8)
+        if (cc.position >= 8)
         {
             cc.takeDamage(3);
         }
@@ -116,6 +125,7 @@ public class CarController : MonoBehaviour
     #region TAR TRAP
     public void tarTrap(CarController cc)
     {
+        audioSource.PlayOneShot(tarTrapSFX);
         StartCoroutine(tarTrapAnimation(cc));
     }
 
@@ -141,6 +151,7 @@ public class CarController : MonoBehaviour
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void smallDamage(CarController cc)
     {
+        audioSource.PlayOneShot(smallDamageSFX);
         StartCoroutine(smallDamageAnimation(cc));
     }
 
@@ -230,7 +241,7 @@ public class CarController : MonoBehaviour
     //Method that applies the effect of the move as determined by the first method. If the move has no variation then this method will always be called.
     public void bigSpeedEffects()
     {
-        if(tailwind)
+        if (tailwind)
         {
             speedUp(3);
         }
@@ -244,6 +255,7 @@ public class CarController : MonoBehaviour
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void shield()
     {
+        audioSource.PlayOneShot(shieldSFX);
         StartCoroutine(shieldAnimation());
     }
 
