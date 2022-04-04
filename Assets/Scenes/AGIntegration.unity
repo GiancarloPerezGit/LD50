@@ -1054,6 +1054,7 @@ MonoBehaviour:
   blueAvailable: 1
   greenAvailable: 1
   tailwindCalc: 0
+  pTailwind: 0
 --- !u!1 &433124387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1747,7 +1748,7 @@ MonoBehaviour:
   turn: 1
   pointsP: 0
   pointsE: 0
-  raceLength: 10
+  raceLength: 20
   positionUpdateDone: 0
   canvas: {fileID: 1823793673}
 --- !u!4 &636000480
