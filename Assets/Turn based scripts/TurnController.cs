@@ -20,6 +20,10 @@ public class TurnController : MonoBehaviour
     //The test UI, used only for debugging. Delete when implementing final.
     public GameObject canvas;
 
+    public AudioSource audioSource; 
+        public AudioClip revForward;
+    public AudioClip revBackward;
+
     /* Method called after the CarController has calculated all the effects of an action.
      * This method will update the TurnController's copy of position of the cars to use for checking End Game conditions.
      * After updating the variables, it will then tell each car to move to their new positions and then wait until the movement is done.
@@ -29,18 +33,22 @@ public class TurnController : MonoBehaviour
         if(healthP > player.position)
         {
             //Player has moved backwards
+            audioSource.PlayOneShot(revBackward);
         }
         else if(healthP < player.position)
         {
             //Player has moved forwards
+            audioSource.PlayOneShot(revForward);
         }
         else if (healthE > enemy.position)
         {
             //Enemy has moved backwards
+            audioSource.PlayOneShot(revBackward);
         }
         else if (healthE < enemy.position)
         {
             //Enemy has moved forwards
+            audioSource.PlayOneShot(revForward);
         }
 
         healthP = player.position;
