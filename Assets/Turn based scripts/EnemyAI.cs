@@ -103,13 +103,27 @@ public class EnemyAI : CarController
                 blueSelect();
             }
         }
-        else if(pTailwind)
+        else if(pTailwind && lastPos > 5)
         {
             if(redAvailable)
             {
                 print("Tarred");
                 tarTrap(cc);
                 redSelect();
+            }
+            else
+            {
+                smallDamage(cc);
+                blueSelect();
+            }
+        }
+        else if (pTailwind && lastPos < 5)
+        {
+            if (greenAvailable)
+            {
+                print("Shielded");
+                shield();
+                blueSelect();
             }
             else
             {
