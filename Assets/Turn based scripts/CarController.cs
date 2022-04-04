@@ -13,6 +13,8 @@ public class CarController : MonoBehaviour
     public bool updatePosition = false;
     public float oldPosition;
     public int lastPos = 5;
+    public Material defaultColor;
+    public Material tarredColor;
     public Animator anim;
     public GameObject idleRoadAnim;
     public GameObject smallNitroChargeAnim;
@@ -20,8 +22,21 @@ public class CarController : MonoBehaviour
     public GameObject bigNitroChargeAnim;
     public GameObject bigNitroCloudAnim;
     public GameObject shieldAnim;
+    public GameObject sparkAnim;
+
     public ParticleSystem casting;
+    public ParticleSystem sparkBase;
+    public ParticleSystem combustionBase;
+    public ParticleSystem combustionSmoke;
+    public ParticleSystem tarBase;
+    public ParticleSystem tarBlob;
+
     private ParticleSystem.EmissionModule emissionCast;
+    private ParticleSystem.EmissionModule emissionBaseSpark;
+    private ParticleSystem.EmissionModule emissionBaseCombustion;
+    private ParticleSystem.EmissionModule emissionSmoke;
+    private ParticleSystem.EmissionModule emissionTarBase;
+    private ParticleSystem.EmissionModule emissionTar;
 
     public AudioClip bigDamageSFX;
     public AudioClip smallDamageSFX;
@@ -33,6 +48,11 @@ public class CarController : MonoBehaviour
     void Start()
     {
         emissionCast = casting.emission;
+        emissionBaseSpark = sparkBase.emission;
+        emissionBaseCombustion = combustionBase.emission;
+        emissionSmoke = combustionSmoke.emission;
+        emissionTarBase = tarBase.emission;
+        emissionTar = tarBlob.emission;
     }
 
     // Update is called once per frame
@@ -102,9 +122,14 @@ public class CarController : MonoBehaviour
     {
         anim.SetBool("isCasting", true);
         emissionCast.enabled = true;
-        yield return new WaitForSeconds(1);
-        anim.SetBool("isCasting", false);
+        emissionBaseCombustion.enabled = true;
+        yield return new WaitForSeconds(0.5f);
         emissionCast.enabled = false;
+        emissionSmoke.enabled = true;
+        anim.SetBool("isCasting", false);
+        yield return new WaitForSeconds(0.5f);
+        emissionBaseCombustion.enabled = false;
+        emissionSmoke.enabled = false;
         bigDamageEffects(cc);
     }
 
@@ -133,9 +158,16 @@ public class CarController : MonoBehaviour
     {
         anim.SetBool("isCasting", true);
         emissionCast.enabled = true;
-        yield return new WaitForSeconds(1);
-        anim.SetBool("isCasting", false);
+        emissionTarBase.enabled = true;
+        yield return new WaitForSeconds(0.5f);
         emissionCast.enabled = false;
+        emissionTar.enabled = true;
+        anim.SetBool("isCasting", false);
+        yield return new WaitForSeconds(0.5f);
+        emissionTarBase.enabled = false;
+        emissionTar.enabled = false;
+        cc.gameObject.GetComponent<Renderer>().material = tarredColor;
+        cc.idleRoadAnim.GetComponent<Renderer>().material = tarredColor;
         tarTrapEffects(cc);
     }
 
@@ -160,9 +192,14 @@ public class CarController : MonoBehaviour
     {
         anim.SetBool("isCasting", true);
         emissionCast.enabled = true;
-        yield return new WaitForSeconds(1);
+        emissionBaseSpark.enabled = true;
+        yield return new WaitForSeconds(0.5f);
         anim.SetBool("isCasting", false);
         emissionCast.enabled = false;
+        sparkAnim.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        emissionBaseSpark.enabled = false;
+        sparkAnim.SetActive(false);
         smallDamageEffects(cc);
     }
 

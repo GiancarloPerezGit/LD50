@@ -154,6 +154,8 @@ public class TurnController : MonoBehaviour
             {
                 player.shieldAnim.SetActive(false);
             }
+            enemy.GetComponent<Renderer>().material = enemy.defaultColor;
+            enemy.idleRoadAnim.GetComponent<Renderer>().material = enemy.defaultColor;
             player.shielded = false;
             enemy.tarred = false;
             //An enemy's action is based on the positions before the players move. Therefore we need to save the positions of player and enemy before the player makes an action.
@@ -164,6 +166,12 @@ public class TurnController : MonoBehaviour
         }
         else
         {
+            if (enemy.shielded)
+            {
+                enemy.shieldAnim.SetActive(false);
+            }
+            player.GetComponent<Renderer>().material = player.defaultColor;
+            player.idleRoadAnim.GetComponent<Renderer>().material = player.defaultColor;
             //The UI turns back off when its the enemys turn.
             canvas.SetActive(false);
             print("Enemy turn");
