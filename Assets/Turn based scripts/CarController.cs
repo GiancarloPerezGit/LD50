@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    public int position = 4;
+    public int position = 5;
     public bool tailwind = false;
     public bool tarred = false;
     public bool shielded = false;
@@ -13,6 +13,7 @@ public class CarController : MonoBehaviour
     public Vector3 newVectorPosition;
     public bool updatePosition = false;
     public float oldPosition;
+    public int lastPos = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,9 +25,9 @@ public class CarController : MonoBehaviour
     {
         if(updatePosition)
         {
-            float step = Mathf.Abs(position - oldPosition) * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, newVectorPosition, step);
-            if(Vector3.Distance(transform.position, newVectorPosition) < 0.001f)
+            float step = Mathf.Abs(position - oldPosition) * 0.3f * Time.deltaTime;
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition, newVectorPosition, step);
+            if(Vector3.Distance(transform.localPosition, newVectorPosition) < 0.001f)
             {
                 updatePosition = false;
                 tc.positionUpdated();
@@ -61,8 +62,8 @@ public class CarController : MonoBehaviour
     
     public void changePosition()
     {
-        newVectorPosition = new Vector3(position - 5, transform.position.y, transform.position.z);
-        oldPosition = transform.position.x;
+        newVectorPosition = new Vector3((position - 5) * 0.3f, transform.localPosition.y, transform.localPosition.z);
+        oldPosition = transform.localPosition.x;
         updatePosition = true;
     }
 
