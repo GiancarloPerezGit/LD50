@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class TurnController : MonoBehaviour
 {
+    public ThreeRules tr;
     public CarController player;
     public EnemyAI enemy;
     //Health represents both the speed and a measure to compare how far the cars are from each other. Cars earn points equal to their health
@@ -19,9 +20,18 @@ public class TurnController : MonoBehaviour
     public int positionUpdateDone = 0;
     //The test UI, used only for debugging. Delete when implementing final.
     public GameObject canvas;
+    public GameObject winSprite;
+    public GameObject loseSprite;
+    public GameObject enemyIndicator;
+    public GameObject playerIndicator;
+    public Vector3 pos;
+    public Vector3 pos2;
+
+
+    public TextMeshProUGUI turnCounter;
 
     public AudioSource audioSource; 
-        public AudioClip revForward;
+    public AudioClip revForward;
     public AudioClip revBackward;
 
     /* Method called after the CarController has calculated all the effects of an action.
@@ -83,6 +93,8 @@ public class TurnController : MonoBehaviour
             {
                 enemy.tailwind = false;
             }
+            playerIndicator.GetComponent<RectTransform>().anchoredPosition = new Vector3((healthP - 5f) * 20f, -6f, 0);
+            enemyIndicator.GetComponent<RectTransform>().anchoredPosition = new Vector3((healthE - 5f) * 20f, 6f, 0);
             addPoints();
             positionUpdateDone = 0;
         }
@@ -107,29 +119,34 @@ public class TurnController : MonoBehaviour
     {
         if (healthP > 10 || healthE < 0)
         {
-            //Player wins
+            winSprite.SetActive(true);
+            tr.off();
             return;
         }
         else if (healthE > 10 || healthP < 0)
         {
-            //Player loses
+            loseSprite.SetActive(true);
+            tr.off();
             return;
         }
         else if(pointsP >= raceLength)
         {
             if(healthP > healthE)
             {
-                //Player wins
+                winSprite.SetActive(true);
+                tr.off();
                 return;
             }
             else if (healthP < healthE)
             {
-                //Player loses
+                loseSprite.SetActive(true);
+                tr.off();
                 return;
             }
             if (healthP == healthE)
             {
-                //Player draws
+                winSprite.SetActive(true);
+                tr.off();
                 return;
             }
         }
@@ -149,6 +166,7 @@ public class TurnController : MonoBehaviour
         if (turn % 2 == 1)
         {
             print("Player turn");
+            turnCounter.text = "Turn " + ((turn + 1)/2).ToString() + "/" + (raceLength/2).ToString();
             //A player shield/tar only lasts until their next turn
             if(player.shielded)
             {
@@ -162,10 +180,12 @@ public class TurnController : MonoBehaviour
             player.lastPos = healthP;
             enemy.lastPos = healthE;
             //The UI turns back on when its the players turn.
-            canvas.SetActive(true);
+            //canvas.SetActive(true);
+            tr.on();
         }
         else
         {
+            
             if (enemy.shielded)
             {
                 enemy.shieldAnim.SetActive(false);
@@ -173,7 +193,7 @@ public class TurnController : MonoBehaviour
             player.GetComponent<Renderer>().material = player.defaultColor;
             player.idleRoadAnim.GetComponent<Renderer>().material = player.defaultColor;
             //The UI turns back off when its the enemys turn.
-            canvas.SetActive(false);
+            //canvas.SetActive(false);
             print("Enemy turn");
             //An enemy shield/tar only lasts until their next turn
             enemy.shielded = false;

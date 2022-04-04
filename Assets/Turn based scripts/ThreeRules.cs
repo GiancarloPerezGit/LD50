@@ -7,6 +7,10 @@ public class ThreeRules : MonoBehaviour
     public GameObject[] red;
     public GameObject[] blue;
     public GameObject[] green;
+
+    public Image redIcon;
+    public Image blueIcon;
+    public Image greenIcon;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +24,40 @@ public class ThreeRules : MonoBehaviour
     {
         
     }
+
+    public void off()
+    {
+        foreach (GameObject action in red)
+        {
+            action.GetComponent<Button>().gameObject.SetActive(false);
+        }
+        foreach (GameObject action in blue)
+        {
+            action.GetComponent<Button>().gameObject.SetActive(false);
+        }
+        foreach (GameObject action in green)
+        {
+            action.GetComponent<Button>().gameObject.SetActive(false);
+        }
+    }
+
+    public void on()
+    {
+        foreach (GameObject action in red)
+        {
+            action.GetComponent<Button>().gameObject.SetActive(true);
+        }
+        foreach (GameObject action in blue)
+        {
+            action.GetComponent<Button>().gameObject.SetActive(true);
+        }
+        foreach (GameObject action in green)
+        {
+            action.GetComponent<Button>().gameObject.SetActive(true);
+        }
+        
+    }
+
     public void redSelected()
     {
         foreach (GameObject action in red)
@@ -34,6 +72,9 @@ public class ThreeRules : MonoBehaviour
         {
             action.GetComponent<Button>().interactable = false;
         }
+        redIcon.color = Color.black;
+        blueIcon.color = Color.white;
+        greenIcon.color = Color.black;
     }
     public void blueSelected()
     {
@@ -49,6 +90,9 @@ public class ThreeRules : MonoBehaviour
         {
             action.GetComponent<Button>().interactable = true;
         }
+        redIcon.color = Color.white;
+        blueIcon.color = Color.black;
+        greenIcon.color = Color.white;
     }
     public void greenSelected()
     {
@@ -64,6 +108,9 @@ public class ThreeRules : MonoBehaviour
         {
             action.GetComponent<Button>().interactable = false;
         }
+        redIcon.color = Color.black;
+        blueIcon.color = Color.white;
+        greenIcon.color = Color.black;
     }
 
     public void graySelected()
