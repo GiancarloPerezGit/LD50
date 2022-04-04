@@ -14,6 +14,12 @@ public class CarController : MonoBehaviour
     public bool updatePosition = false;
     public float oldPosition;
     public int lastPos = 5;
+
+    public AudioClip bigDamageSFX;
+    public AudioClip smallDamageSFX;
+    public AudioClip shieldSFX;
+    public AudioClip tarTrapSFX;
+    public AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +33,7 @@ public class CarController : MonoBehaviour
         {
             float step = Mathf.Abs(position - oldPosition) * 0.3f * Time.deltaTime;
             transform.localPosition = Vector3.MoveTowards(transform.localPosition, newVectorPosition, step);
+           
             if(Vector3.Distance(transform.localPosition, newVectorPosition) < 0.001f)
             {
                 updatePosition = false;
@@ -73,6 +80,7 @@ public class CarController : MonoBehaviour
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void bigDamage(CarController cc)
     {
+        audioSource.PlayOneShot(bigDamageSFX);
         StartCoroutine(bigDamageAnimation(cc));
     }
 
@@ -100,6 +108,7 @@ public class CarController : MonoBehaviour
     #region TAR TRAP
     public void tarTrap(CarController cc)
     {
+        audioSource.PlayOneShot(tarTrapSFX);
         StartCoroutine(tarTrapAnimation(cc));
     }
 
@@ -121,6 +130,7 @@ public class CarController : MonoBehaviour
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void smallDamage(CarController cc)
     {
+        audioSource.PlayOneShot(smallDamageSFX);
         StartCoroutine(smallDamageAnimation(cc));
     }
 
@@ -210,6 +220,7 @@ public class CarController : MonoBehaviour
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void shield()
     {
+        audioSource.PlayOneShot(shieldSFX);
         StartCoroutine(shieldAnimation());
     }
 

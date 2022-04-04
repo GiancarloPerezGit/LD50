@@ -14,9 +14,9 @@ public class RadioAnnouncer : MonoBehaviour
 
 
     private float timer = 0.0f;
-    [Range(10.0f, 15.0f)]
+    [Range(25.0f, 35.0f)]
     public float minBufferTime;
-    [Range(20.0f, 25.0f)]
+    [Range(40.0f, 60.0f)]
     public float maxBufferTime;
 
 

@@ -8,7 +8,9 @@ public class CircleSlider : MonoBehaviour {
     [SerializeField] Transform handle;
 
     //tbh you don't have to use a visible fill if the knob itself is clear enough
-    [SerializeField] Image fill; 
+    [SerializeField] Image fill;
+
+    [SerializeField] Text text; //for debugging, not needed 
 
     //[SerializeField] Text valTxt;
 
@@ -25,10 +27,14 @@ public class CircleSlider : MonoBehaviour {
     }
 
     public void OnHandleDrag() {
+       
         mousePos = Input.mousePosition;
         Vector2 dir = mousePos - handle.position;
+
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
         angle = (angle <= 0) ? (360 + angle) : angle;
+
         if (angle <= 225 || angle >= 315){
             Quaternion r = Quaternion.AngleAxis(angle + 135f, Vector3.forward);
             handle.rotation = r;
@@ -37,9 +43,15 @@ public class CircleSlider : MonoBehaviour {
 
             value = Mathf.Round((fill.fillAmount * 100) / 0.75f);
             //PlayerPrefs.SetFloat("SongVolume", value);
-
+            text.text = value.ToString();
             //valTxt.text = value.ToString();
         }
 
+    }
+
+
+    private void Update()
+    {
+        
     }
 }

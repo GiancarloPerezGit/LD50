@@ -7,26 +7,25 @@ public class TestMusicLayer : MonoBehaviour
 
     public MusicLayerSystem musicLayerSystem;
 
-    [Range(75, 200)]
+    public TurnController turnController;
     public int maxPoints;
 
     public int currentPoints = 0;
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(turnController == null)
+            turnController = FindObjectOfType<TurnController>();
+
+        maxPoints = turnController.raceLength;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
-            RandomAdder();
-
-        if (Input.GetKeyDown(KeyCode.D))
-            RandomSubtractor();
 
 
+        currentPoints = turnController.pointsP;
         LayerChecker();
     }
 
