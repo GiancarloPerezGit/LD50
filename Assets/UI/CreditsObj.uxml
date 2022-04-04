@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:VisualElement name="CreditsObj" style="align-items: center; justify-content: space-between; max-width: 49%; position: relative; flex-grow: 1; margin-top: 0;">
-        <ui:VisualElement style="flex-grow: 1; justify-content: center;">
+    <ui:VisualElement name="CreditsObj" style="align-items: center; justify-content: space-between; max-width: 60%; position: relative; flex-grow: 1; margin-top: 0;">
+        <ui:VisualElement style="flex-grow: 1; justify-content: center; width: 100%;">
             <ui:VisualElement name="contentContainer" style="width: 100%;">
-                <ui:Label text="Credits:&#10;&#10;Lead Game Design: Andres Solorzano @Pious&#10;&#10;Lead Programmer: Giancarlo Perez @RezTheCoward&#10;&#10;Lead Artist: Sofia Hayden @Sofimei&#10;&#10;Lead Music and SFX: Peterson Normil @Agent-Peterson" display-tooltip-when-elided="true" name="credits" class="content-background" style="-unity-text-align: upper-left; -unity-font-definition: none; -unity-font: url(&apos;/Assets/UI/Fonts/Pixel Operator/PixelOperatorHBSC.ttf&apos;); font-size: 18px; white-space: normal; color: rgb(210, 210, 210);" />
+                <ui:Label text="Credits:&#10;&#10;Lead Game Design: Andres Solorzano @Pious&#10;&#10;Lead Programmer: Giancarlo Perez @RezTheCoward&#10;&#10;Lead Artist: Sofia Hayden @Sofimei&#10;&#10;Lead Music and SFX: Peterson Normil @Agent-Peterson" display-tooltip-when-elided="true" name="credits" class="content-background" style="-unity-text-align: upper-left; -unity-font-definition: none; -unity-font: url(&apos;/Assets/UI/Fonts/Pixel Operator/PixelOperatorHBSC.ttf&apos;); font-size: 22px; white-space: normal; color: rgb(210, 210, 210);" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="buttonContainer" style="flex-grow: 0; width: 244px; flex-direction: column; align-items: stretch; justify-content: center; padding-bottom: 50px;">

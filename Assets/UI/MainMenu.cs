@@ -25,6 +25,11 @@ public class MainMenu : MonoBehaviour
     public Slider soundSlider;
     public Slider announcerSlider;
 
+    public float masterVolumeLevel; //The Actual Master Volume Variable
+    public float songVolumeLevel; //The Actual Song Volume Variable
+    public float soundVolumeLevel; //The Actual Sound Volume Variable
+    public float announcerVolumeLevel; //The Actual Announcer Volume Variable
+
     private void Awake()
     {
         uiDoc = GetComponent<UIDocument>();
@@ -33,6 +38,7 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Query everything by string name to the UXML document
         VisualElement root = uiDoc.rootVisualElement;
 
         playButton = root.Q<Button>("playbutton");
@@ -53,17 +59,20 @@ public class MainMenu : MonoBehaviour
 
         VolumeSliderUpdate();
 
+        //DisplayStyle.None hides UI, DisplayStyle.Flex shows off UI.
         homeScreen.style.display = DisplayStyle.Flex;
         settingsScreen.style.display = DisplayStyle.None;
         creditsScreen.style.display = DisplayStyle.None;
 
+        //Making it so whenever you click a button it calls its appropriate function
         playButton.clicked += PlayButtonPressed;
         settingsButton.clicked += SettingsButtonPressed;
         creditsButton.clicked += CreditsButtonPressed;
 
-        sbackButton.clicked += BackButtonPressed;
-        cbackButton.clicked += BackButtonPressed;
+        sbackButton.clicked += BackButtonPressed;//Back button on the settings page
+        cbackButton.clicked += BackButtonPressed;//Back button on the credits page
 
+        //Making it so that whenever you move a slider it calls its appropriate function
         masterSlider.RegisterValueChangedCallback(OnMasterSliderChange);
         songSlider.RegisterValueChangedCallback(OnSongSliderChange);
         soundSlider.RegisterValueChangedCallback(OnSoundSliderChange);
@@ -71,36 +80,60 @@ public class MainMenu : MonoBehaviour
 
     }
 
+    //Update the value of the sliders so that the slider knobs don't start
+    //on default positions when your volume settings were changed
     public void VolumeSliderUpdate()
     {
-        //update the sliders
+        //Pull from save data
+        masterVolumeLevel = PlayerPrefs.GetFloat("MasterVolume");
+        songVolumeLevel = PlayerPrefs.GetFloat("SongVolume");
+        soundVolumeLevel = PlayerPrefs.GetFloat("SoundVolume");
+        announcerVolumeLevel = PlayerPrefs.GetFloat("AnnouncerVolume");
+
+        //Sets the sliders here
+        masterSlider.value = masterVolumeLevel;
+        songSlider.value = songVolumeLevel;
+        soundSlider.value = soundVolumeLevel;
+        announcerSlider.value = announcerVolumeLevel;
     }
 
     private void OnMasterSliderChange(ChangeEvent<float> evt)
     {
-        Debug.Log("Master volume = " + masterSlider.value);
-        //PlayerPrefs.SetFloat("MasterVolume", masterSlider.value);
+        masterVolumeLevel = masterSlider.value;
+        PlayerPrefs.SetFloat("MasterVolume", masterVolumeLevel);
+
+        //Adjust the game's volume here: GameVolume = masterVolumeLevel;
     }
     private void OnSongSliderChange(ChangeEvent<float> evt)
     {
-        Debug.Log("Song volume = " + songSlider.value);
+        songVolumeLevel = songSlider.value;
+        PlayerPrefs.SetFloat("SongVolume", songVolumeLevel);
+
+        //Adjust the game's volume here: GameVolume = songVolumeLevel;
     }
     private void OnSoundSliderChange(ChangeEvent<float> evt)
     {
-        Debug.Log("Sound volume = " + soundSlider.value);
+        soundVolumeLevel = soundSlider.value;
+        PlayerPrefs.SetFloat("SoundVolume", soundVolumeLevel);
+
+        //Adjust the game's volume here: GameVolume = soundVolumeLevel;
     }
     private void OnAnnouncerSliderChange(ChangeEvent<float> evt)
     {
-        Debug.Log("Announcer volume = " + announcerSlider.value); 
+        announcerVolumeLevel = announcerSlider.value;
+        PlayerPrefs.SetFloat("AnnouncerVolume", announcerVolumeLevel);
+
+        //Adjust the game's volume here: GameVolume = announcerVolumeLevel; 
     }
 
     void PlayButtonPressed()
     {
-        SceneManager.LoadScene("AndresScene");
+        SceneManager.LoadScene("AndresScene"); //Replace with the actual Scene
     }
 
     void SettingsButtonPressed()
     {
+        VolumeSliderUpdate(); //Update the sliders as soon as you enter
         homeScreen.style.display = DisplayStyle.None;
         creditsScreen.style.display = DisplayStyle.None;
         settingsScreen.style.display = DisplayStyle.Flex;
@@ -120,7 +153,6 @@ public class MainMenu : MonoBehaviour
         homeScreen.style.display = DisplayStyle.Flex;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
