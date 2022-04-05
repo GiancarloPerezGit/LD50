@@ -73,3 +73,85 @@
     padding-bottom: 20px;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+.playbutton {
+    justify-content: center;
+    background-image: url('/Assets/Sprites/UI and Text/PlayButton.png');
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+    flex-shrink: 1;
+    position: relative;
+    height: 71px;
+    width: 188px;
+    background-color: rgba(88, 88, 88, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    left: 80px;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.playbutton:hover {
+    justify-content: center;
+    background-image: url('/Assets/Sprites/UI and Text/PlayButton.png');
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+    flex-shrink: 1;
+    position: relative;
+    height: 71px;
+    width: 188px;
+    background-color: rgba(88, 88, 88, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    left: 80px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.75);
+}
+
+.playbutton:active {
+    justify-content: center;
+    background-image: url('/Assets/Sprites/UI and Text/PlayButton.png');
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+    flex-shrink: 1;
+    position: relative;
+    height: 71px;
+    width: 188px;
+    background-color: rgba(88, 88, 88, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    left: 80px;
+    -unity-background-image-tint-color: rgb(43, 153, 158);
+}
+
+.backbutton {
+    left: auto;
+    background-image: url('/Assets/Sprites/UI and Text/BackButton.png');
+}
+
+.backbutton:hover {
+    left: auto;
+    background-image: url('/Assets/Sprites/UI and Text/BackButton.png');
+}
+
+.backbutton:active {
+    left: auto;
+    background-image: url('/Assets/Sprites/UI and Text/BackButton.png');
+    -unity-background-image-tint-color: rgb(45, 144, 149);
+}
