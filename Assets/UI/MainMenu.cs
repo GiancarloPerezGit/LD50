@@ -13,6 +13,8 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField]
     private AudioMixer audioMixer;
+    public AudioMixerSnapshot normal;
+    public AudioMixerSnapshot paused;
 
     private UIDocument uiDoc;
     public Button playButton;
@@ -156,6 +158,7 @@ public class MainMenu : MonoBehaviour
         homeScreen.style.display = DisplayStyle.None;
         creditsScreen.style.display = DisplayStyle.None;
         settingsScreen.style.display = DisplayStyle.Flex;
+        paused.TransitionTo(0.75f);
     }
 
     void CreditsButtonPressed()
@@ -170,6 +173,7 @@ public class MainMenu : MonoBehaviour
         settingsScreen.style.display = DisplayStyle.None;
         creditsScreen.style.display = DisplayStyle.None;
         homeScreen.style.display = DisplayStyle.Flex;
+        normal.TransitionTo(0.75f);
     }
 
     void Update()

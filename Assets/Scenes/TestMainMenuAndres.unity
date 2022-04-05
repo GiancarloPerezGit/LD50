@@ -575,7 +575,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94e7f47f31d9c44d9aebb9344bd8845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsFirst: 0
   audioMixer: {fileID: 24100000, guid: 071703757da963741b2b5395b3d4af77, type: 2}
+  normal: {fileID: 24500006, guid: 071703757da963741b2b5395b3d4af77, type: 2}
+  paused: {fileID: -8484244926125370092, guid: 071703757da963741b2b5395b3d4af77, type: 2}
   masterVolumeLevel: 0
   songVolumeLevel: 0
   soundVolumeLevel: 0
