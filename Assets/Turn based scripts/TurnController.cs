@@ -24,8 +24,9 @@ public class TurnController : MonoBehaviour
     public GameObject loseSprite;
     public GameObject enemyIndicator;
     public GameObject playerIndicator;
-    public Vector3 pos;
-    public Vector3 pos2;
+    public Color defaultColor;
+    public Color tailwindColor;
+    public Color damageColor;
 
 
     public TextMeshProUGUI turnCounter;
@@ -77,22 +78,29 @@ public class TurnController : MonoBehaviour
         positionUpdateDone += 1;
         if (positionUpdateDone == 2)
         {
+            player.idleRoadAnim.GetComponent<SpriteRenderer>().color = defaultColor;
+            enemy.idleRoadAnim.GetComponent<SpriteRenderer>().color = defaultColor;
             if (healthE - healthP <= 3 && healthE != healthP)
             {
                 player.tailwind = true;
+
             }
             else
             {
                 player.tailwind = false;
+
             }
             if (healthP - healthE <= 3 && healthE != healthP)
             {
                 enemy.tailwind = true;
+
             }
             else
             {
                 enemy.tailwind = false;
+
             }
+            
             playerIndicator.GetComponent<RectTransform>().anchoredPosition = new Vector3((healthP - 5f) * 20f, -6f, 0);
             enemyIndicator.GetComponent<RectTransform>().anchoredPosition = new Vector3((healthE - 5f) * 20f, 6f, 0);
             addPoints();
