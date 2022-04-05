@@ -22,7 +22,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="VisualElement" style="flex-grow: 0; width: 244px; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 50px;">
-                <ui:Button display-tooltip-when-elided="true" name="sback" class="button playbutton backbutton" />
+                <ui:Button display-tooltip-when-elided="true" name="sback" class="button playbutton backbutton" style="height: 35px;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
