@@ -113,6 +113,7 @@ public class CarController : MonoBehaviour
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void bigDamage(CarController cc)
     {
+        RandomizeSFX();
         audioSource.PlayOneShot(bigDamageSFX);
         StartCoroutine(bigDamageAnimation(cc));
     }
@@ -150,6 +151,7 @@ public class CarController : MonoBehaviour
     #region TAR TRAP
     public void tarTrap(CarController cc)
     {
+        RandomizeSFX();
         audioSource.PlayOneShot(tarTrapSFX);
         StartCoroutine(tarTrapAnimation(cc));
     }
@@ -183,6 +185,7 @@ public class CarController : MonoBehaviour
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void smallDamage(CarController cc)
     {
+        RandomizeSFX();
         audioSource.PlayOneShot(smallDamageSFX);
         StartCoroutine(smallDamageAnimation(cc));
     }
@@ -292,6 +295,7 @@ public class CarController : MonoBehaviour
     //Method called by the UI after the action is selected. This method will start the animation and handle any logic needed before a moves effect can be calculated.
     public void shield()
     {
+        RandomizeSFX();
         audioSource.PlayOneShot(shieldSFX);
         StartCoroutine(shieldAnimation());
     }
@@ -317,4 +321,12 @@ public class CarController : MonoBehaviour
     }
     #endregion
     #endregion
+
+
+    private void RandomizeSFX()
+    {
+        audioSource.volume = Random.Range(0.9f, 1);
+        audioSource.pitch = Random.Range(0.9f, 1.05f);
+    }
+
 }

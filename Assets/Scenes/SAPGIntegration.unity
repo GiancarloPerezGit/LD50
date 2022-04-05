@@ -31497,6 +31497,8 @@ MonoBehaviour:
   loseSprite: {fileID: 1228769074}
   enemyIndicator: {fileID: 1340741719}
   playerIndicator: {fileID: 580207518}
+  pos: {x: 0, y: 0, z: 0}
+  pos2: {x: 0, y: 0, z: 0}
   turnCounter: {fileID: 568900521}
   audioSource: {fileID: 736176874}
   revForward: {fileID: 8300000, guid: 4d11e8fe0574acf46aa0d241cc56c48f, type: 3}
@@ -49526,15 +49528,15 @@ PrefabInstance:
     - target: {fileID: 2684832733670384914, guid: b2010fe757726714db3eb7c0e753714a, type: 3}
       propertyPath: layer1
       value: 
-      objectReference: {fileID: 8300000, guid: 639445b78449aab4894d5a45520021ae, type: 3}
+      objectReference: {fileID: 8300000, guid: aedf315e2e12a6f4c856c610973bb833, type: 3}
     - target: {fileID: 2684832733670384914, guid: b2010fe757726714db3eb7c0e753714a, type: 3}
       propertyPath: layer2
       value: 
-      objectReference: {fileID: 8300000, guid: aa8e3135882c1064da580bcbe778d79b, type: 3}
+      objectReference: {fileID: 8300000, guid: fdb3c86ce1844494e932af93ba34ae91, type: 3}
     - target: {fileID: 2684832733670384914, guid: b2010fe757726714db3eb7c0e753714a, type: 3}
       propertyPath: layer3
       value: 
-      objectReference: {fileID: 8300000, guid: bc38925f879554540847741fa7839912, type: 3}
+      objectReference: {fileID: 8300000, guid: 0b0cfc29477eef446becbacb69edcaf2, type: 3}
     - target: {fileID: 2684832733670384915, guid: b2010fe757726714db3eb7c0e753714a, type: 3}
       propertyPath: m_RootOrder
       value: 5
