@@ -1,30 +1,30 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="CreditsObj" src="CreditsObj.uxml" />
     <Style src="Menu.uss" />
-    <ui:VisualElement name="OverlayScreen" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0.2); display: none;">
+    <ui:VisualElement name="OverlayScreen" style="flex-grow: 1; background-color: rgba(255, 255, 255, 0.2); display: flex;">
         <ui:VisualElement name="PauseScreen" style="flex-grow: 1; align-items: stretch; justify-content: center; -unity-text-align: upper-center; flex-direction: row; display: flex;">
             <ui:VisualElement name="VisualElement" style="align-items: center; justify-content: space-around; max-width: 33%; position: relative; flex-grow: 1; margin-top: 0;">
                 <ui:Label text="Paused" display-tooltip-when-elided="true" name="title" class="title" style="-unity-text-align: middle-center; font-size: 54%; white-space: nowrap; position: relative; flex-wrap: nowrap; width: 453px; left: auto;" />
-                <ui:VisualElement name="contentContainer" style="flex-grow: 0; width: 244px; flex-direction: column; align-items: stretch; justify-content: center;">
-                    <ui:Button text="Resume" display-tooltip-when-elided="true" name="resumebutton" class="button" style="justify-content: center;" />
-                    <ui:Button text="Settings" display-tooltip-when-elided="true" name="settingsbutton" class="button" />
-                    <ui:Button text="Credits" display-tooltip-when-elided="true" name="creditsbutton" class="button" />
-                    <ui:Button text="Quit" display-tooltip-when-elided="true" name="quitbutton" class="button" />
+                <ui:VisualElement name="contentContainer" style="flex-grow: 0; width: 244px; flex-direction: column; align-items: center; justify-content: center;">
+                    <ui:Button display-tooltip-when-elided="true" name="resumebutton" enable-rich-text="true" class="uibutton" style="height: 35px; width: 326px; -unity-background-scale-mode: scale-to-fit; background-image: url(&apos;/Assets/Sprites/UI and Text/ResumeButton.png&apos;);" />
+                    <ui:Button display-tooltip-when-elided="true" name="settingsbutton" class="button uibutton" style="height: 35px; background-image: url(&apos;/Assets/Sprites/UI and Text/OptionsButton.png&apos;); -unity-background-scale-mode: scale-to-fit; width: 326px;" />
+                    <ui:Button text="Credits" display-tooltip-when-elided="true" name="creditsbutton" class="button" style="display: none; -unity-background-scale-mode: scale-to-fit; background-image: url(&apos;/Assets/Sprites/UI and Text/CreditsButton.png&apos;);" />
+                    <ui:Button display-tooltip-when-elided="true" name="quitbutton" class="button uibutton" style="background-image: url(&apos;/Assets/Sprites/UI and Text/QuitButton.png&apos;); -unity-background-scale-mode: scale-to-fit; height: 35px; width: 235px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="SettingsScreen" style="flex-grow: 1; align-items: stretch; justify-content: center; -unity-text-align: upper-center; flex-direction: row; display: none;">
             <ui:VisualElement style="align-items: center; justify-content: space-between; max-width: 48%; position: relative; flex-grow: 1; margin-top: 0;">
                 <ui:VisualElement style="width: 100%;">
-                    <ui:VisualElement name="contentContainer" style="margin-top: 100px; background-color: rgba(0, 0, 0, 0.6); padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px;">
+                    <ui:VisualElement name="contentContainer" style="margin-top: 100px; background-color: rgb(0, 0, 0); padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px;">
                         <ui:Slider picking-mode="Ignore" label="Master Volume" value="42" high-value="100" name="masterSlider" />
                         <ui:Slider picking-mode="Ignore" label="Song Volume" value="42" high-value="100" name="songSlider" />
                         <ui:Slider picking-mode="Ignore" label="Sound Volume" value="42" high-value="100" name="soundSlider" />
                         <ui:Slider picking-mode="Ignore" label="Announcer Volume" value="42" high-value="100" name="announcerSlider" style="display: none;" />
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="VisualElement" style="flex-grow: 0; width: 244px; flex-direction: column; align-items: stretch; justify-content: center; padding-bottom: 50px;">
-                    <ui:Button text="Back" display-tooltip-when-elided="true" name="sback" class="button" />
+                <ui:VisualElement name="VisualElement" style="flex-grow: 0; width: 244px; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 50px;">
+                    <ui:Button text="&#10;" display-tooltip-when-elided="true" name="sback" class="button backbutton uibutton" style="height: 35px; width: 345px; -unity-background-scale-mode: scale-to-fit;" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

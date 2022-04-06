@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: b3192ae3c3bd0954f8fce67662596301, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5950,8 +5950,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 071703757da963741b2b5395b3d4af77, type: 2}
-  normal: {fileID: 24500006, guid: 071703757da963741b2b5395b3d4af77, type: 2}
-  paused: {fileID: -8484244926125370092, guid: 071703757da963741b2b5395b3d4af77, type: 2}
   isPaused: 0
   masterVolumeLevel: 0
   songVolumeLevel: 0
