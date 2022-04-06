@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UIElements.Experimental;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class PauseMenu : MonoBehaviour
 {
+    public AudioMixer audioMixer;
+   
 
     private UIDocument uiDoc;
 
@@ -100,6 +103,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (isPaused)
         {
+          
             overlayScreen.style.display = DisplayStyle.None;
             isPaused = false;
 
@@ -107,6 +111,7 @@ public class PauseMenu : MonoBehaviour
 
         } else
         {
+         
             overlayScreen.style.display = DisplayStyle.Flex;
             isPaused = true;
 
@@ -135,6 +140,7 @@ public class PauseMenu : MonoBehaviour
     {
         masterVolumeLevel = masterSlider.value;
         PlayerPrefs.SetFloat("MasterVolume", masterVolumeLevel);
+        audioMixer.SetFloat("MasterVolume", (Mathf.Log10(((masterSlider.value + 1.0f) * 0.00000099009901f)) * 40) + 160);
 
         //Adjust the game's volume here: GameVolume = masterVolumeLevel;
     }
@@ -143,12 +149,15 @@ public class PauseMenu : MonoBehaviour
         songVolumeLevel = songSlider.value;
         PlayerPrefs.SetFloat("SongVolume", songVolumeLevel);
 
+        audioMixer.SetFloat("MusicVolume", (Mathf.Log10(((songSlider.value + 1.0f) * 0.00000099009901f)) * 40) + 160);
+
         //Adjust the game's volume here: GameVolume = songVolumeLevel;
     }
     private void OnSoundSliderChange(ChangeEvent<float> evt)
     {
         soundVolumeLevel = soundSlider.value;
         PlayerPrefs.SetFloat("SoundVolume", soundVolumeLevel);
+        audioMixer.SetFloat("SFXVolume", (Mathf.Log10(((soundSlider.value + 1.0f) * 0.00000099009901f)) * 40) + 160);
 
         //Adjust the game's volume here: GameVolume = soundVolumeLevel;
     }
@@ -162,11 +171,13 @@ public class PauseMenu : MonoBehaviour
 
     void ResumeButtonPressed()
     {
+       
         PausePressed();
     }
 
     void SettingsButtonPressed()
     {
+     
         VolumeSliderUpdate(); //Update the volume sliders as soon as you enter
         pauseScreen.style.display = DisplayStyle.None;
         creditsScreen.style.display = DisplayStyle.None;
@@ -182,6 +193,7 @@ public class PauseMenu : MonoBehaviour
 
     void BackButtonPressed()
     {
+        
         settingsScreen.style.display = DisplayStyle.None;
         creditsScreen.style.display = DisplayStyle.None;
         pauseScreen.style.display = DisplayStyle.Flex;
